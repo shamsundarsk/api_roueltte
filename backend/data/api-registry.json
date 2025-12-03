@@ -1,0 +1,1254 @@
+{
+  "apis": [
+    {
+      "id": "openweather",
+      "name": "OpenWeather API",
+      "description": "Current weather data, forecasts, and historical weather information for any location",
+      "category": "weather",
+      "baseUrl": "https://api.openweathermap.org",
+      "sampleEndpoint": "/data/2.5/weather?q=London",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "temp": 15.5,
+        "condition": "Cloudy",
+        "humidity": 65
+      },
+      "documentationUrl": "https://openweathermap.org/api"
+    },
+    {
+      "id": "spotify",
+      "name": "Spotify Web API",
+      "description": "Access to Spotify's music catalog, playlists, user data, and playback controls",
+      "category": "music",
+      "baseUrl": "https://api.spotify.com",
+      "sampleEndpoint": "/v1/search?q=rock&type=track",
+      "authType": "oauth",
+      "corsCompatible": true,
+      "mockData": {
+        "tracks": [
+          {
+            "name": "Bohemian Rhapsody",
+            "artist": "Queen"
+          }
+        ]
+      },
+      "documentationUrl": "https://developer.spotify.com/documentation/web-api"
+    },
+    {
+      "id": "googlemaps",
+      "name": "Google Maps API",
+      "description": "Maps, geocoding, directions, and place information",
+      "category": "maps",
+      "baseUrl": "https://maps.googleapis.com",
+      "sampleEndpoint": "/maps/api/geocode/json?address=1600+Amphitheatre+Parkway",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "lat": 37.4224764,
+        "lng": -122.0842499
+      },
+      "documentationUrl": "https://developers.google.com/maps/documentation"
+    },
+    {
+      "id": "newsapi",
+      "name": "News API",
+      "description": "Breaking news headlines and articles from news sources worldwide",
+      "category": "news",
+      "baseUrl": "https://newsapi.org",
+      "sampleEndpoint": "/v2/top-headlines?country=us",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "articles": [
+          {
+            "title": "Breaking News",
+            "source": "CNN"
+          }
+        ]
+      },
+      "documentationUrl": "https://newsapi.org/docs"
+    },
+    {
+      "id": "unsplash",
+      "name": "Unsplash API",
+      "description": "High-quality free photos and image search",
+      "category": "images",
+      "baseUrl": "https://api.unsplash.com",
+      "sampleEndpoint": "/photos/random",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "url": "https://images.unsplash.com/photo-sample",
+        "author": "John Doe"
+      },
+      "documentationUrl": "https://unsplash.com/documentation"
+    },
+    {
+      "id": "giphy",
+      "name": "GIPHY API",
+      "description": "Search and access millions of GIFs and stickers",
+      "category": "images",
+      "baseUrl": "https://api.giphy.com",
+      "sampleEndpoint": "/v1/gifs/search?q=funny",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "gifs": [
+          {
+            "url": "https://media.giphy.com/sample.gif"
+          }
+        ]
+      },
+      "documentationUrl": "https://developers.giphy.com/docs/api"
+    },
+    {
+      "id": "themoviedb",
+      "name": "The Movie Database API",
+      "description": "Movie and TV show information, ratings, and images",
+      "category": "entertainment",
+      "baseUrl": "https://api.themoviedb.org",
+      "sampleEndpoint": "/3/movie/popular",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "movies": [
+          {
+            "title": "Inception",
+            "rating": 8.8
+          }
+        ]
+      },
+      "documentationUrl": "https://developers.themoviedb.org/3"
+    },
+    {
+      "id": "restcountries",
+      "name": "REST Countries API",
+      "description": "Information about countries including population, languages, and currencies",
+      "category": "geography",
+      "baseUrl": "https://restcountries.com",
+      "sampleEndpoint": "/v3.1/name/france",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://restcountries.com"
+    },
+    {
+      "id": "coinapi",
+      "name": "CoinAPI",
+      "description": "Cryptocurrency market data and exchange rates",
+      "category": "finance",
+      "baseUrl": "https://rest.coinapi.io",
+      "sampleEndpoint": "/v1/exchangerate/BTC/USD",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "rate": 45000.5
+      },
+      "documentationUrl": "https://docs.coinapi.io"
+    },
+    {
+      "id": "exchangerate",
+      "name": "Exchange Rate API",
+      "description": "Currency exchange rates and conversion",
+      "category": "finance",
+      "baseUrl": "https://api.exchangerate-api.com",
+      "sampleEndpoint": "/v4/latest/USD",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://www.exchangerate-api.com/docs"
+    },
+    {
+      "id": "nasa",
+      "name": "NASA API",
+      "description": "Space imagery, Mars rover photos, and astronomy data",
+      "category": "science",
+      "baseUrl": "https://api.nasa.gov",
+      "sampleEndpoint": "/planetary/apod",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "title": "Astronomy Picture of the Day",
+        "url": "https://apod.nasa.gov/sample.jpg"
+      },
+      "documentationUrl": "https://api.nasa.gov"
+    },
+    {
+      "id": "openai",
+      "name": "OpenAI API",
+      "description": "AI-powered text generation, completion, and embeddings",
+      "category": "ai",
+      "baseUrl": "https://api.openai.com",
+      "sampleEndpoint": "/v1/completions",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "completion": "This is a sample AI response"
+      },
+      "documentationUrl": "https://platform.openai.com/docs"
+    },
+    {
+      "id": "github",
+      "name": "GitHub API",
+      "description": "Repository data, user profiles, and code management",
+      "category": "developer",
+      "baseUrl": "https://api.github.com",
+      "sampleEndpoint": "/users/octocat",
+      "authType": "oauth",
+      "corsCompatible": true,
+      "mockData": {
+        "login": "octocat",
+        "repos": 8
+      },
+      "documentationUrl": "https://docs.github.com/en/rest"
+    },
+    {
+      "id": "twitter",
+      "name": "Twitter API",
+      "description": "Tweets, user timelines, and social media data",
+      "category": "social",
+      "baseUrl": "https://api.twitter.com",
+      "sampleEndpoint": "/2/tweets/search/recent",
+      "authType": "oauth",
+      "corsCompatible": true,
+      "mockData": {
+        "tweets": [
+          {
+            "text": "Sample tweet",
+            "likes": 42
+          }
+        ]
+      },
+      "documentationUrl": "https://developer.twitter.com/en/docs"
+    },
+    {
+      "id": "reddit",
+      "name": "Reddit API",
+      "description": "Posts, comments, and subreddit data",
+      "category": "social",
+      "baseUrl": "https://www.reddit.com",
+      "sampleEndpoint": "/r/programming/hot.json",
+      "authType": "oauth",
+      "corsCompatible": true,
+      "mockData": {
+        "posts": [
+          {
+            "title": "Sample post",
+            "upvotes": 1234
+          }
+        ]
+      },
+      "documentationUrl": "https://www.reddit.com/dev/api"
+    },
+    {
+      "id": "youtube",
+      "name": "YouTube Data API",
+      "description": "Video search, channel data, and statistics",
+      "category": "video",
+      "baseUrl": "https://www.googleapis.com/youtube",
+      "sampleEndpoint": "/v3/search?q=coding",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "videos": [
+          {
+            "title": "Learn to Code",
+            "views": 1000000
+          }
+        ]
+      },
+      "documentationUrl": "https://developers.google.com/youtube/v3"
+    },
+    {
+      "id": "twitch",
+      "name": "Twitch API",
+      "description": "Live streaming data, channels, and game information",
+      "category": "video",
+      "baseUrl": "https://api.twitch.tv",
+      "sampleEndpoint": "/helix/streams",
+      "authType": "oauth",
+      "corsCompatible": true,
+      "mockData": {
+        "streams": [
+          {
+            "title": "Live Gaming",
+            "viewers": 5000
+          }
+        ]
+      },
+      "documentationUrl": "https://dev.twitch.tv/docs/api"
+    },
+    {
+      "id": "yelp",
+      "name": "Yelp Fusion API",
+      "description": "Business listings, reviews, and local search",
+      "category": "business",
+      "baseUrl": "https://api.yelp.com",
+      "sampleEndpoint": "/v3/businesses/search?location=NYC",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "businesses": [
+          {
+            "name": "Joe's Pizza",
+            "rating": 4.5
+          }
+        ]
+      },
+      "documentationUrl": "https://www.yelp.com/developers/documentation"
+    },
+    {
+      "id": "foursquare",
+      "name": "Foursquare Places API",
+      "description": "Location data, venue recommendations, and check-ins",
+      "category": "business",
+      "baseUrl": "https://api.foursquare.com",
+      "sampleEndpoint": "/v3/places/search",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "venues": [
+          {
+            "name": "Coffee Shop",
+            "category": "Cafe"
+          }
+        ]
+      },
+      "documentationUrl": "https://developer.foursquare.com/docs"
+    },
+    {
+      "id": "stripe",
+      "name": "Stripe API",
+      "description": "Payment processing, subscriptions, and financial transactions",
+      "category": "payments",
+      "baseUrl": "https://api.stripe.com",
+      "sampleEndpoint": "/v1/charges",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "amount": 1000,
+        "currency": "usd"
+      },
+      "documentationUrl": "https://stripe.com/docs/api"
+    },
+    {
+      "id": "sendgrid",
+      "name": "SendGrid API",
+      "description": "Email delivery and marketing campaigns",
+      "category": "communication",
+      "baseUrl": "https://api.sendgrid.com",
+      "sampleEndpoint": "/v3/mail/send",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "status": "sent"
+      },
+      "documentationUrl": "https://docs.sendgrid.com/api-reference"
+    },
+    {
+      "id": "twilio",
+      "name": "Twilio API",
+      "description": "SMS, voice calls, and messaging services",
+      "category": "communication",
+      "baseUrl": "https://api.twilio.com",
+      "sampleEndpoint": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "message": "Hello World",
+        "status": "delivered"
+      },
+      "documentationUrl": "https://www.twilio.com/docs/usage/api"
+    },
+    {
+      "id": "slack",
+      "name": "Slack API",
+      "description": "Team communication, channels, and messaging",
+      "category": "communication",
+      "baseUrl": "https://slack.com/api",
+      "sampleEndpoint": "/chat.postMessage",
+      "authType": "oauth",
+      "corsCompatible": true,
+      "mockData": {
+        "message": "Hello team!",
+        "channel": "general"
+      },
+      "documentationUrl": "https://api.slack.com"
+    },
+    {
+      "id": "nutritionix",
+      "name": "Nutritionix API",
+      "description": "Food nutrition data and calorie information",
+      "category": "health",
+      "baseUrl": "https://trackapi.nutritionix.com",
+      "sampleEndpoint": "/v2/natural/nutrients",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "calories": 200,
+        "protein": 10
+      },
+      "documentationUrl": "https://www.nutritionix.com/business/api"
+    },
+    {
+      "id": "fitbit",
+      "name": "Fitbit API",
+      "description": "Activity tracking, sleep data, and health metrics",
+      "category": "health",
+      "baseUrl": "https://api.fitbit.com",
+      "sampleEndpoint": "/1/user/-/activities/date/today.json",
+      "authType": "oauth",
+      "corsCompatible": true,
+      "mockData": {
+        "steps": 8000,
+        "calories": 2000
+      },
+      "documentationUrl": "https://dev.fitbit.com/build/reference/web-api"
+    },
+    {
+      "id": "spoonacular",
+      "name": "Spoonacular API",
+      "description": "Recipe search, meal planning, and ingredient analysis",
+      "category": "food",
+      "baseUrl": "https://api.spoonacular.com",
+      "sampleEndpoint": "/recipes/complexSearch",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "recipes": [
+          {
+            "title": "Pasta Carbonara",
+            "readyInMinutes": 30
+          }
+        ]
+      },
+      "documentationUrl": "https://spoonacular.com/food-api/docs"
+    },
+    {
+      "id": "edamam",
+      "name": "Edamam Recipe API",
+      "description": "Recipe search and nutritional analysis",
+      "category": "food",
+      "baseUrl": "https://api.edamam.com",
+      "sampleEndpoint": "/search?q=chicken",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "recipes": [
+          {
+            "label": "Chicken Soup",
+            "calories": 350
+          }
+        ]
+      },
+      "documentationUrl": "https://developer.edamam.com/edamam-docs-recipe-api"
+    },
+    {
+      "id": "openweathermap",
+      "name": "OpenWeatherMap One Call API",
+      "description": "Comprehensive weather data including forecasts and historical",
+      "category": "weather",
+      "baseUrl": "https://api.openweathermap.org",
+      "sampleEndpoint": "/data/2.5/onecall?lat=33.44&lon=-94.04",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "current": {
+          "temp": 20,
+          "weather": "Clear"
+        }
+      },
+      "documentationUrl": "https://openweathermap.org/api/one-call-api"
+    },
+    {
+      "id": "weatherapi",
+      "name": "WeatherAPI.com",
+      "description": "Real-time weather and forecast data",
+      "category": "weather",
+      "baseUrl": "https://api.weatherapi.com",
+      "sampleEndpoint": "/v1/current.json?q=London",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "temp_c": 18,
+        "condition": "Partly cloudy"
+      },
+      "documentationUrl": "https://www.weatherapi.com/docs"
+    },
+    {
+      "id": "lastfm",
+      "name": "Last.fm API",
+      "description": "Music metadata, artist info, and listening history",
+      "category": "music",
+      "baseUrl": "https://ws.audioscrobbler.com",
+      "sampleEndpoint": "/2.0/?method=chart.gettoptracks",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "tracks": [
+          {
+            "name": "Stairway to Heaven",
+            "artist": "Led Zeppelin"
+          }
+        ]
+      },
+      "documentationUrl": "https://www.last.fm/api"
+    },
+    {
+      "id": "deezer",
+      "name": "Deezer API",
+      "description": "Music streaming, playlists, and artist data",
+      "category": "music",
+      "baseUrl": "https://api.deezer.com",
+      "sampleEndpoint": "/search?q=eminem",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://developers.deezer.com/api"
+    },
+    {
+      "id": "mapbox",
+      "name": "Mapbox API",
+      "description": "Custom maps, geocoding, and navigation",
+      "category": "maps",
+      "baseUrl": "https://api.mapbox.com",
+      "sampleEndpoint": "/geocoding/v5/mapbox.places/Los%20Angeles.json",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "coordinates": [
+          -118.2437,
+          34.0522
+        ]
+      },
+      "documentationUrl": "https://docs.mapbox.com/api"
+    },
+    {
+      "id": "opencage",
+      "name": "OpenCage Geocoding API",
+      "description": "Forward and reverse geocoding",
+      "category": "maps",
+      "baseUrl": "https://api.opencagedata.com",
+      "sampleEndpoint": "/geocode/v1/json?q=Berlin",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "lat": 52.52,
+        "lng": 13.405
+      },
+      "documentationUrl": "https://opencagedata.com/api"
+    },
+    {
+      "id": "guardian",
+      "name": "The Guardian API",
+      "description": "News articles and content from The Guardian",
+      "category": "news",
+      "baseUrl": "https://content.guardianapis.com",
+      "sampleEndpoint": "/search?q=technology",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "articles": [
+          {
+            "title": "Tech News",
+            "section": "Technology"
+          }
+        ]
+      },
+      "documentationUrl": "https://open-platform.theguardian.com/documentation"
+    },
+    {
+      "id": "nytimes",
+      "name": "New York Times API",
+      "description": "Articles, book reviews, and movie reviews",
+      "category": "news",
+      "baseUrl": "https://api.nytimes.com",
+      "sampleEndpoint": "/svc/topstories/v2/home.json",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "articles": [
+          {
+            "title": "Breaking News",
+            "section": "World"
+          }
+        ]
+      },
+      "documentationUrl": "https://developer.nytimes.com"
+    },
+    {
+      "id": "pexels",
+      "name": "Pexels API",
+      "description": "Free stock photos and videos",
+      "category": "images",
+      "baseUrl": "https://api.pexels.com",
+      "sampleEndpoint": "/v1/search?query=nature",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "photos": [
+          {
+            "url": "https://images.pexels.com/sample.jpg"
+          }
+        ]
+      },
+      "documentationUrl": "https://www.pexels.com/api/documentation"
+    },
+    {
+      "id": "pixabay",
+      "name": "Pixabay API",
+      "description": "Free images and videos",
+      "category": "images",
+      "baseUrl": "https://pixabay.com/api",
+      "sampleEndpoint": "/?q=yellow+flowers",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "hits": [
+          {
+            "webformatURL": "https://pixabay.com/sample.jpg"
+          }
+        ]
+      },
+      "documentationUrl": "https://pixabay.com/api/docs"
+    },
+    {
+      "id": "omdb",
+      "name": "OMDb API",
+      "description": "Movie information and ratings",
+      "category": "entertainment",
+      "baseUrl": "https://www.omdbapi.com",
+      "sampleEndpoint": "/?t=Inception",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "Title": "Inception",
+        "Year": "2010",
+        "imdbRating": "8.8"
+      },
+      "documentationUrl": "https://www.omdbapi.com"
+    },
+    {
+      "id": "tvmaze",
+      "name": "TVmaze API",
+      "description": "TV show information and schedules",
+      "category": "entertainment",
+      "baseUrl": "https://api.tvmaze.com",
+      "sampleEndpoint": "/search/shows?q=friends",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://www.tvmaze.com/api"
+    },
+    {
+      "id": "jikan",
+      "name": "Jikan API",
+      "description": "Anime and manga information from MyAnimeList",
+      "category": "entertainment",
+      "baseUrl": "https://api.jikan.moe",
+      "sampleEndpoint": "/v4/anime/1",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.api.jikan.moe"
+    },
+    {
+      "id": "geonames",
+      "name": "GeoNames API",
+      "description": "Geographical database with place names and coordinates",
+      "category": "geography",
+      "baseUrl": "http://api.geonames.org",
+      "sampleEndpoint": "/searchJSON?q=london",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://www.geonames.org/export/web-services.html"
+    },
+    {
+      "id": "worldbank",
+      "name": "World Bank API",
+      "description": "Global development data and indicators",
+      "category": "geography",
+      "baseUrl": "https://api.worldbank.org",
+      "sampleEndpoint": "/v2/country/all/indicator/SP.POP.TOTL",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://datahelpdesk.worldbank.org/knowledgebase/articles/889392"
+    },
+    {
+      "id": "alphavantage",
+      "name": "Alpha Vantage API",
+      "description": "Stock market data and financial indicators",
+      "category": "finance",
+      "baseUrl": "https://www.alphavantage.co",
+      "sampleEndpoint": "/query?function=TIME_SERIES_DAILY&symbol=IBM",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "symbol": "IBM",
+        "price": 145.5
+      },
+      "documentationUrl": "https://www.alphavantage.co/documentation"
+    },
+    {
+      "id": "coingecko",
+      "name": "CoinGecko API",
+      "description": "Cryptocurrency prices and market data",
+      "category": "finance",
+      "baseUrl": "https://api.coingecko.com",
+      "sampleEndpoint": "/api/v3/simple/price?ids=bitcoin&vs_currencies=usd",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://www.coingecko.com/en/api/documentation"
+    },
+    {
+      "id": "spacex",
+      "name": "SpaceX API",
+      "description": "SpaceX launches, rockets, and mission data",
+      "category": "science",
+      "baseUrl": "https://api.spacexdata.com",
+      "sampleEndpoint": "/v4/launches/latest",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://github.com/r-spacex/SpaceX-API"
+    },
+    {
+      "id": "arxiv",
+      "name": "arXiv API",
+      "description": "Scientific research papers and preprints",
+      "category": "science",
+      "baseUrl": "http://export.arxiv.org",
+      "sampleEndpoint": "/api/query?search_query=quantum",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://arxiv.org/help/api"
+    },
+    {
+      "id": "huggingface",
+      "name": "Hugging Face API",
+      "description": "Machine learning models and NLP tasks",
+      "category": "ai",
+      "baseUrl": "https://api-inference.huggingface.co",
+      "sampleEndpoint": "/models/gpt2",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "generated_text": "Sample AI output"
+      },
+      "documentationUrl": "https://huggingface.co/docs/api-inference"
+    },
+    {
+      "id": "replicate",
+      "name": "Replicate API",
+      "description": "Run machine learning models in the cloud",
+      "category": "ai",
+      "baseUrl": "https://api.replicate.com",
+      "sampleEndpoint": "/v1/predictions",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "output": "Model prediction result"
+      },
+      "documentationUrl": "https://replicate.com/docs"
+    },
+    {
+      "id": "gitlab",
+      "name": "GitLab API",
+      "description": "Repository management, CI/CD, and project data",
+      "category": "developer",
+      "baseUrl": "https://gitlab.com/api",
+      "sampleEndpoint": "/v4/projects",
+      "authType": "oauth",
+      "corsCompatible": true,
+      "mockData": {
+        "projects": [
+          {
+            "name": "my-project",
+            "stars": 42
+          }
+        ]
+      },
+      "documentationUrl": "https://docs.gitlab.com/ee/api"
+    },
+    {
+      "id": "stackoverflow",
+      "name": "Stack Exchange API",
+      "description": "Questions, answers, and user data from Stack Overflow",
+      "category": "developer",
+      "baseUrl": "https://api.stackexchange.com",
+      "sampleEndpoint": "/2.3/questions?order=desc&sort=activity&site=stackoverflow",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://api.stackexchange.com/docs"
+    },
+    {
+      "id": "discord",
+      "name": "Discord API",
+      "description": "Bot creation, server management, and messaging",
+      "category": "social",
+      "baseUrl": "https://discord.com/api",
+      "sampleEndpoint": "/users/@me",
+      "authType": "oauth",
+      "corsCompatible": true,
+      "mockData": {
+        "username": "user123",
+        "discriminator": "1234"
+      },
+      "documentationUrl": "https://discord.com/developers/docs"
+    },
+    {
+      "id": "instagram",
+      "name": "Instagram Basic Display API",
+      "description": "User profile and media data",
+      "category": "social",
+      "baseUrl": "https://graph.instagram.com",
+      "sampleEndpoint": "/me/media",
+      "authType": "oauth",
+      "corsCompatible": true,
+      "mockData": {
+        "media": [
+          {
+            "caption": "Beautiful sunset",
+            "likes": 150
+          }
+        ]
+      },
+      "documentationUrl": "https://developers.facebook.com/docs/instagram-basic-display-api"
+    },
+    {
+      "id": "vimeo",
+      "name": "Vimeo API",
+      "description": "Video hosting, streaming, and analytics",
+      "category": "video",
+      "baseUrl": "https://api.vimeo.com",
+      "sampleEndpoint": "/videos/123456789",
+      "authType": "oauth",
+      "corsCompatible": true,
+      "mockData": {
+        "name": "Sample Video",
+        "duration": 120
+      },
+      "documentationUrl": "https://developer.vimeo.com/api"
+    },
+    {
+      "id": "dailymotion",
+      "name": "Dailymotion API",
+      "description": "Video search and playback",
+      "category": "video",
+      "baseUrl": "https://api.dailymotion.com",
+      "sampleEndpoint": "/videos?search=tutorial",
+      "authType": "oauth",
+      "corsCompatible": true,
+      "mockData": {
+        "videos": [
+          {
+            "title": "How to Code",
+            "views": 50000
+          }
+        ]
+      },
+      "documentationUrl": "https://developers.dailymotion.com/api"
+    },
+    {
+      "id": "zomato",
+      "name": "Zomato API",
+      "description": "Restaurant search, menus, and reviews",
+      "category": "business",
+      "baseUrl": "https://developers.zomato.com/api",
+      "sampleEndpoint": "/v2.1/search?q=pizza",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "restaurants": [
+          {
+            "name": "Pizza Palace",
+            "rating": 4.2
+          }
+        ]
+      },
+      "documentationUrl": "https://developers.zomato.com/documentation"
+    },
+    {
+      "id": "tripadvisor",
+      "name": "TripAdvisor API",
+      "description": "Travel reviews, hotel ratings, and attractions",
+      "category": "travel",
+      "baseUrl": "https://api.tripadvisor.com",
+      "sampleEndpoint": "/api/partner/2.0/location/search",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "locations": [
+          {
+            "name": "Grand Hotel",
+            "rating": 4.5
+          }
+        ]
+      },
+      "documentationUrl": "https://www.tripadvisor.com/developers"
+    },
+    {
+      "id": "skyscanner",
+      "name": "Skyscanner API",
+      "description": "Flight search and booking",
+      "category": "travel",
+      "baseUrl": "https://partners.api.skyscanner.net",
+      "sampleEndpoint": "/apiservices/browseroutes/v1.0/US/USD/en-US/SFO-sky/LAX-sky/anytime",
+      "authType": "apikey",
+      "corsCompatible": true,
+      "mockData": {
+        "flights": [
+          {
+            "price": 150,
+            "airline": "United"
+          }
+        ]
+      },
+      "documentationUrl": "https://developers.skyscanner.net/docs"
+    },
+    {
+      "id": "paypal",
+      "name": "PayPal API",
+      "description": "Payment processing and transaction management",
+      "category": "payments",
+      "baseUrl": "https://api.paypal.com",
+      "sampleEndpoint": "/v1/payments/payment",
+      "authType": "oauth",
+      "corsCompatible": true,
+      "mockData": {
+        "transaction_id": "12345",
+        "status": "completed"
+      },
+      "documentationUrl": "https://developer.paypal.com/docs/api"
+    },
+    {
+      "id": "square",
+      "name": "Square API",
+      "description": "Point of sale, payments, and inventory",
+      "category": "payments",
+      "baseUrl": "https://connect.squareup.com",
+      "sampleEndpoint": "/v2/payments",
+      "authType": "oauth",
+      "corsCompatible": true,
+      "mockData": {
+        "amount": 2500,
+        "status": "COMPLETED"
+      },
+      "documentationUrl": "https://developer.squareup.com/docs"
+    },
+    {
+      "id": "test-api-1764516194106",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-duplicate",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764516226844",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764516251178",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764516331724",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764516356797",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764516692615",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764517077979",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764517150212",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764517461982",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764517490628",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764517587349",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764517609685",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764517804726",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764517997743",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764518068948",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764518280053",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764518301723",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764520044897",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764520990550",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764521624454",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764685281418",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764685306006",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764685426788",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764685683755",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764685707758",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764686321434",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764686727891",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764686762636",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    }
+  ]
+}

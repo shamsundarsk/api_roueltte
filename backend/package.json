@@ -1,0 +1,55 @@
+{
+  "name": "mashup-maker-backend",
+  "version": "1.0.0",
+  "description": "Backend for Mashup Maker - API combination generator",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write \"src/**/*.ts\""
+  },
+  "keywords": [
+    "api",
+    "mashup",
+    "generator"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "archiver": "^6.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "fs-extra": "^11.2.0",
+    "handlebars": "^4.7.8",
+    "joi": "^17.11.0",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "@babel/parser": "^7.28.5",
+    "@types/adm-zip": "^0.5.7",
+    "@types/archiver": "^6.0.2",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/fs-extra": "^11.0.4",
+    "@types/jest": "^29.5.11",
+    "@types/node": "^20.10.5",
+    "@types/supertest": "^6.0.3",
+    "@types/uuid": "^10.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "adm-zip": "^0.5.16",
+    "eslint": "^8.56.0",
+    "fast-check": "^3.15.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.1.1",
+    "supertest": "^7.1.4",
+    "ts-jest": "^29.1.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.3"
+  }
+}

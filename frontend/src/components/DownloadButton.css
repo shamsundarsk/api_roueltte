@@ -1,0 +1,123 @@
+.download-button {
+  padding: 1rem 2rem;
+  font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 2px solid var(--primary-gradient-start);
+  background: var(--white);
+  color: var(--primary-gradient-start);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.3px;
+  min-width: 180px;
+}
+
+.download-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.download-button:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+.download-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%);
+  color: var(--white);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+  border-color: transparent;
+}
+
+.download-button:active:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+}
+
+.download-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.download-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+.download-button.success {
+  border-color: var(--success);
+  color: var(--success);
+  animation: successPulse 0.5s ease-out;
+}
+
+@keyframes successPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.download-button.success:hover:not(:disabled) {
+  background: var(--success);
+  color: var(--white);
+  border-color: transparent;
+}
+
+.button-icon {
+  font-size: 1.375rem;
+  transition: transform 0.3s ease;
+}
+
+.download-button:hover:not(:disabled) .button-icon:not(.spinner) {
+  transform: translateY(2px);
+}
+
+.button-icon.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .download-button {
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .download-button {
+    padding: 0.75rem 1.25rem;
+    min-width: auto;
+  }
+
+  .button-icon {
+    font-size: 1.25rem;
+  }
+}
