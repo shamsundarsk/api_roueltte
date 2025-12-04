@@ -1,5 +1,6 @@
 import React from 'react';
 import { UILayout } from '../types';
+import { PaletteIcon, MonitorIcon } from './Icons';
 import './UILayoutDisplay.css';
 
 interface UILayoutDisplayProps {
@@ -9,14 +10,24 @@ interface UILayoutDisplayProps {
 const UILayoutDisplay: React.FC<UILayoutDisplayProps> = ({ uiLayout }) => {
   return (
     <div className="ui-layout-display">
-      <h3 className="layout-title">UI Layout Suggestions</h3>
+      <h3 className="layout-title">
+        <span className="layout-title-icon">
+          <PaletteIcon size={28} />
+        </span>
+        UI Layout Suggestions
+      </h3>
 
       <div className="layout-section">
         <h4 className="layout-section-title">Recommended Screens</h4>
         <div className="screens-grid">
           {uiLayout.screens.map((screen, index) => (
             <div key={index} className="screen-card">
-              <h5 className="screen-name">{screen.name}</h5>
+              <h5 className="screen-name">
+                <span className="screen-name-icon">
+                  <MonitorIcon size={20} />
+                </span>
+                {screen.name}
+              </h5>
               <p className="screen-description">{screen.description}</p>
               <div className="screen-components">
                 <span className="components-label">Components:</span>

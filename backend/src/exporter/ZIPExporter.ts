@@ -103,6 +103,10 @@ export class ZIPExporter {
         const readme = this.generateReadme(idea);
         archive.append(readme, { name: 'README.md' });
 
+        // Generate and add index.html landing page
+        const indexHtml = this.generateIndexHtml(idea);
+        archive.append(indexHtml, { name: 'index.html' });
+
         // Finalize the archive
         archive.finalize();
       });
@@ -303,6 +307,401 @@ export class ZIPExporter {
       );
       // Don't throw - cleanup failures shouldn't break the application
     }
+  }
+
+  /**
+   * Generate an interactive HTML landing page
+   * @param idea - The app idea
+   * @returns HTML content as a string
+   */
+  private generateIndexHtml(idea: AppIdea): string {
+    const mockAPIs = idea.apis.filter(api => api.authType !== 'none');
+    const hasMockMode = mockAPIs.length > 0;
+
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${idea.appName} - Project Overview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            line-height: 1.6;
+            color: #1C1917;
+            background: linear-gradient(135deg, #FAFAF9 0%, #F5F5F4 100%);
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+            color: white;
+            padding: 48px 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+        
+        .header p {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 16px;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #1C1917;
+            letter-spacing: -0.01em;
+        }
+        
+        .section p {
+            color: #57534E;
+            margin-bottom: 12px;
+        }
+        
+        .features {
+            list-style: none;
+            display: grid;
+            gap: 12px;
+        }
+        
+        .features li {
+            padding: 12px 16px;
+            background: #FAFAF9;
+            border-radius: 8px;
+            border-left: 3px solid #7C3AED;
+            color: #1C1917;
+        }
+        
+        .api-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+        
+        .api-card {
+            padding: 20px;
+            background: #FAFAF9;
+            border: 1px solid #E7E5E4;
+            border-radius: 12px;
+            transition: all 0.2s;
+        }
+        
+        .api-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .api-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1C1917;
+        }
+        
+        .api-card p {
+            font-size: 14px;
+            color: #78716C;
+            margin-bottom: 12px;
+        }
+        
+        .api-meta {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            padding: 4px 10px;
+            background: white;
+            border: 1px solid #E7E5E4;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #57534E;
+        }
+        
+        .setup-steps {
+            background: #F5F5F4;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 20px;
+        }
+        
+        .setup-steps h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #1C1917;
+        }
+        
+        .step {
+            margin-bottom: 20px;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            background: #7C3AED;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-right: 12px;
+        }
+        
+        .step-content {
+            display: inline-block;
+            vertical-align: top;
+            width: calc(100% - 40px);
+        }
+        
+        .step-title {
+            font-weight: 600;
+            color: #1C1917;
+            margin-bottom: 4px;
+        }
+        
+        code {
+            background: #1C1917;
+            color: #14B8A6;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+        }
+        
+        .code-block {
+            background: #1C1917;
+            color: #F5F5F4;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 12px 0;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        
+        .alert {
+            padding: 16px 20px;
+            background: #FFF7ED;
+            border: 1px solid #FDBA74;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .alert-title {
+            font-weight: 600;
+            color: #EA580C;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .alert p {
+            color: #9A3412;
+            font-size: 14px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 32px;
+            background: #FAFAF9;
+            border-top: 1px solid #E7E5E4;
+            color: #78716C;
+            font-size: 14px;
+        }
+        
+        .footer a {
+            color: #7C3AED;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✨ ${idea.appName}</h1>
+            <p>${idea.description}</p>
+            <span class="badge">Generated by Mashup Maker</span>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <h2>🎯 Features</h2>
+                <ul class="features">
+                    ${idea.features.map(feature => `<li>${feature}</li>`).join('\n                    ')}
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>💡 Rationale</h2>
+                <p>${idea.rationale}</p>
+            </div>
+            
+            <div class="section">
+                <h2>🔌 Selected APIs</h2>
+                <div class="api-grid">
+                    ${idea.apis.map(api => `
+                    <div class="api-card">
+                        <h3>${api.name}</h3>
+                        <p>${api.description}</p>
+                        <div class="api-meta">
+                            <span class="tag">${api.category}</span>
+                            <span class="tag">${api.authType === 'none' ? 'No Auth' : api.authType.toUpperCase()}</span>
+                            ${api.corsCompatible ? '<span class="tag">CORS ✓</span>' : ''}
+                        </div>
+                    </div>
+                    `).join('\n                    ')}
+                </div>
+            </div>
+            
+            ${hasMockMode ? `
+            <div class="alert">
+                <div class="alert-title">
+                    <span>⚠️</span>
+                    <span>Mock Mode Active</span>
+                </div>
+                <p>Some APIs require authentication. The generated code includes mock data for these APIs. To use real data, add your API keys to the backend/.env file and update the service files.</p>
+            </div>
+            ` : ''}
+            
+            <div class="section">
+                <h2>🚀 Quick Start</h2>
+                <div class="setup-steps">
+                    <h3>Backend Setup</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <div class="step-content">
+                            <div class="step-title">Navigate to backend directory</div>
+                            <div class="code-block">cd backend</div>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <div class="step-content">
+                            <div class="step-title">Install dependencies</div>
+                            <div class="code-block">npm install</div>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <div class="step-content">
+                            <div class="step-title">Configure environment</div>
+                            <p>Copy <code>.env.example</code> to <code>.env</code> and add your API keys</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <div class="step-content">
+                            <div class="step-title">Start the server</div>
+                            <div class="code-block">npm run dev</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="setup-steps" style="margin-top: 20px;">
+                    <h3>Frontend Setup</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <div class="step-content">
+                            <div class="step-title">Navigate to frontend directory</div>
+                            <div class="code-block">cd frontend</div>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <div class="step-content">
+                            <div class="step-title">Install dependencies</div>
+                            <div class="code-block">npm install</div>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <div class="step-content">
+                            <div class="step-title">Configure environment</div>
+                            <p>Copy <code>.env.example</code> to <code>.env</code></p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <div class="step-content">
+                            <div class="step-title">Start the development server</div>
+                            <div class="code-block">npm run dev</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>📚 Documentation</h2>
+                <p>For detailed information about the project structure, API integration, and deployment:</p>
+                <ul class="features">
+                    <li>Read the <strong>README.md</strong> file for comprehensive documentation</li>
+                    <li>Check the <strong>backend/src/services/</strong> directory for API integration examples</li>
+                    <li>Review the <strong>frontend/src/components/</strong> directory for UI components</li>
+                    <li>Visit the API documentation links above for authentication details</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Generated on ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+            <p>Created with <a href="https://github.com/yourusername/mashup-maker" target="_blank">Mashup Maker</a></p>
+        </div>
+    </div>
+</body>
+</html>`;
   }
 
   /**

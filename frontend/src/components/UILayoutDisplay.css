@@ -16,9 +16,10 @@
   gap: 0.75rem;
 }
 
-.layout-title::before {
-  content: '🎨';
-  font-size: 1.75rem;
+.layout-title-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .layout-section {
@@ -96,9 +97,10 @@
   gap: 0.5rem;
 }
 
-.screen-name::before {
-  content: '📱';
-  font-size: 1.25rem;
+.screen-name-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .screen-description {

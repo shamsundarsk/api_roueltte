@@ -1,4 +1,5 @@
 import React from 'react';
+import { RefreshIcon } from './Icons';
 import './RegenerateButton.css';
 
 interface RegenerateButtonProps {
@@ -13,7 +14,9 @@ const RegenerateButton: React.FC<RegenerateButtonProps> = ({ onClick, disabled =
       onClick={onClick}
       disabled={disabled}
     >
-      <span className="button-icon">🔄</span>
+      <span className="button-icon">
+        <RefreshIcon size={16} />
+      </span>
       Regenerate
     </button>
   );

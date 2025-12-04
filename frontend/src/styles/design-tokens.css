@@ -4,40 +4,40 @@
  */
 
 :root {
-  /* Colors - Primary (Unique Purple-Blue) */
-  --color-primary: #7C3AED;
-  --color-primary-hover: #6D28D9;
-  --color-primary-light: #A78BFA;
-  --color-primary-dark: #5B21B6;
-  --color-primary-glow: rgba(124, 58, 237, 0.15);
+  /* Colors - Primary (API Roulette Green) */
+  --color-primary: #2ecc70;
+  --color-primary-hover: #27ae60;
+  --color-primary-light: #58d68d;
+  --color-primary-dark: #229954;
+  --color-primary-glow: rgba(46, 204, 112, 0.15);
   
-  /* Colors - Secondary (Vibrant Teal) */
+  /* Colors - Secondary */
   --color-secondary: #14B8A6;
   --color-secondary-hover: #0D9488;
   --color-secondary-light: #5EEAD4;
   
-  /* Colors - Accent (Coral) */
+  /* Colors - Accent */
   --color-accent: #F97316;
   --color-accent-hover: #EA580C;
   --color-accent-light: #FB923C;
   
-  /* Colors - Background (Warm neutrals) */
-  --color-bg: #FAFAF9;
-  --color-bg-alt: #F5F5F4;
+  /* Colors - Background (Light mode) */
+  --color-bg: #f6f8f7;
+  --color-bg-alt: #ffffff;
   --color-surface: #FFFFFF;
-  --color-surface-hover: #FAFAF9;
+  --color-surface-hover: #f6f8f7;
   --color-surface-elevated: #FFFFFF;
   
-  /* Colors - Border (Subtle) */
-  --color-border: #E7E5E4;
-  --color-border-light: #F5F5F4;
-  --color-border-dark: #D6D3D1;
+  /* Colors - Border */
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-light: rgba(0, 0, 0, 0.05);
+  --color-border-dark: rgba(0, 0, 0, 0.12);
   
-  /* Colors - Text (Rich blacks) */
-  --color-text: #1C1917;
-  --color-text-secondary: #57534E;
-  --color-text-muted: #78716C;
-  --color-text-disabled: #A8A29E;
+  /* Colors - Text */
+  --color-text: #1a1a1a;
+  --color-text-secondary: #4a5568;
+  --color-text-muted: #718096;
+  --color-text-disabled: #a0aec0;
   
   /* Colors - Status */
   --color-success: #14B8A6;

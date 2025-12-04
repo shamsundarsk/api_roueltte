@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useMashup } from '../context/MashupContext';
 import { sendChatMessage, getChatbotStatus, getQuickHelp, ChatMessage } from '../services/chatbot.service';
+import { RobotIcon, UserIcon, PackageIcon, KeyIcon, BugIcon, ClipboardIcon } from './Icons';
 import './AIChatbot.css';
 
 interface AIChatbotProps {
@@ -130,7 +131,9 @@ export const AIChatbot: React.FC<AIChatbotProps> = ({ isOpen, onClose }) => {
       <div className="chatbot-container">
         <div className="chatbot-header">
           <div className="chatbot-title">
-            <span className="chatbot-icon">🤖</span>
+            <span className="chatbot-icon">
+              <RobotIcon size={24} />
+            </span>
             <h3>AI Project Assistant</h3>
             {mashupData && (
               <span className="chatbot-project-name">{mashupData.idea.appName}</span>
@@ -166,10 +169,18 @@ export const AIChatbot: React.FC<AIChatbotProps> = ({ isOpen, onClose }) => {
               </ul>
               
               <div className="quick-help-buttons">
-                <button onClick={() => handleQuickHelp('setup')}>📦 Setup Guide</button>
-                <button onClick={() => handleQuickHelp('api-keys')}>🔑 API Keys</button>
-                <button onClick={() => handleQuickHelp('errors')}>🐛 Common Errors</button>
-                <button onClick={() => handleQuickHelp('structure')}>📁 Project Structure</button>
+                <button onClick={() => handleQuickHelp('setup')}>
+                  <PackageIcon size={16} /> Setup Guide
+                </button>
+                <button onClick={() => handleQuickHelp('api-keys')}>
+                  <KeyIcon size={16} /> API Keys
+                </button>
+                <button onClick={() => handleQuickHelp('errors')}>
+                  <BugIcon size={16} /> Common Errors
+                </button>
+                <button onClick={() => handleQuickHelp('structure')}>
+                  <ClipboardIcon size={16} /> Project Structure
+                </button>
               </div>
             </div>
           )}
@@ -177,7 +188,7 @@ export const AIChatbot: React.FC<AIChatbotProps> = ({ isOpen, onClose }) => {
           {messages.map((msg, idx) => (
             <div key={idx} className={`chatbot-message chatbot-message-${msg.role}`}>
               <div className="chatbot-message-avatar">
-                {msg.role === 'user' ? '👤' : '🤖'}
+                {msg.role === 'user' ? <UserIcon size={20} /> : <RobotIcon size={20} />}
               </div>
               <div className="chatbot-message-content">
                 <pre>{msg.content}</pre>
@@ -187,7 +198,9 @@ export const AIChatbot: React.FC<AIChatbotProps> = ({ isOpen, onClose }) => {
 
           {isLoading && (
             <div className="chatbot-message chatbot-message-assistant">
-              <div className="chatbot-message-avatar">🤖</div>
+              <div className="chatbot-message-avatar">
+                <RobotIcon size={20} />
+              </div>
               <div className="chatbot-message-content">
                 <div className="chatbot-typing">
                   <span></span>
