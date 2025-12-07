@@ -88,6 +88,12 @@ export class CodeGenerator {
     // Generate .env.example
     files.set('.env.example', this.generateBackendEnvExample(apis));
 
+    // Generate .gitignore
+    files.set('.gitignore', this.generateBackendGitignore());
+
+    // Generate backend README
+    files.set('README.md', this.generateBackendReadme(apis));
+
     const structure = this.buildBackendStructure(apis);
 
     return {
@@ -136,6 +142,21 @@ export class CodeGenerator {
 
     // Generate .env.example
     files.set('.env.example', this.generateFrontendEnvExample());
+
+    // Generate index.html
+    files.set('public/index.html', this.generateIndexHtml(idea));
+
+    // Generate App.css
+    files.set('src/App.css', this.generateAppCss());
+
+    // Generate index.css
+    files.set('src/index.css', this.generateIndexCss());
+
+    // Generate .gitignore
+    files.set('.gitignore', this.generateFrontendGitignore());
+
+    // Generate README
+    files.set('README.md', this.generateFrontendReadme(idea));
 
     const structure = this.buildFrontendStructure(idea.apis);
 
@@ -1054,5 +1075,448 @@ Happy coding! 🚀
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-|-$/g, '');
+  }
+
+  /**
+   * Generate index.html for React app
+   */
+  private generateIndexHtml(idea: AppIdea): string {
+    const template = `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="{{description}}"
+    />
+    <title>{{appName}}</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>
+`;
+
+    const compiled = Handlebars.compile(template);
+    return compiled({
+      appName: idea.appName,
+      description: idea.description,
+    });
+  }
+
+  /**
+   * Generate App.css with modern styling
+   */
+  private generateAppCss(): string {
+    return `.App {
+  text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.App-header {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 40px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.App-header h1 {
+  font-size: 2.5rem;
+  color: #2d3748;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.App-header p {
+  font-size: 1.2rem;
+  color: #4a5568;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.dashboard-container {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.api-components {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.component-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.component-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.component-card h3 {
+  color: #667eea;
+  margin-bottom: 16px;
+  font-size: 1.5rem;
+}
+
+.component-card p {
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+.loading {
+  color: #667eea;
+  font-size: 1.2rem;
+  padding: 40px;
+}
+
+.error {
+  color: #e53e3e;
+  background-color: #fff5f5;
+  border: 1px solid #fc8181;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 20px 0;
+}
+
+button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .App-header h1 {
+    font-size: 2rem;
+  }
+  
+  .api-components {
+    grid-template-columns: 1fr;
+  }
+}
+`;
+  }
+
+  /**
+   * Generate index.css with global styles
+   */
+  private generateIndexCss(): string {
+    return `* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+#root {
+  min-height: 100vh;
+}
+`;
+  }
+
+  /**
+   * Generate .gitignore for frontend
+   */
+  private generateFrontendGitignore(): string {
+    return `# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+
+# Production
+/build
+
+# Misc
+.DS_Store
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+`;
+  }
+
+  /**
+   * Generate .gitignore for backend
+   */
+  private generateBackendGitignore(): string {
+    return `# Dependencies
+node_modules/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Testing
+coverage/
+.nyc_output/
+
+# Build
+dist/
+build/
+`;
+  }
+
+  /**
+   * Generate backend-specific README
+   */
+  private generateBackendReadme(apis: APIMetadata[]): string {
+    const template = `# Backend API Server
+
+This is the backend server that integrates with multiple APIs.
+
+## Integrated APIs
+
+{{#each apis}}
+- **{{name}}** ({{category}})
+  - Authentication: {{authType}}
+  - Documentation: {{documentationUrl}}
+{{/each}}
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm or yarn
+
+### Installation
+
+1. Install dependencies:
+   \`\`\`bash
+   npm install
+   \`\`\`
+
+2. Create a \`.env\` file based on \`.env.example\`:
+   \`\`\`bash
+   cp .env.example .env
+   \`\`\`
+
+3. Add your API keys to the \`.env\` file (if required)
+
+### Running the Server
+
+Start the development server:
+
+\`\`\`bash
+npm run dev
+\`\`\`
+
+The server will run on [http://localhost:3000](http://localhost:3000)
+
+For production:
+
+\`\`\`bash
+npm start
+\`\`\`
+
+## API Endpoints
+
+### GET /api/mashup/data
+
+Fetches data from all integrated APIs.
+
+**Response:**
+\`\`\`json
+{
+  "success": true,
+  "data": {
+    // Combined data from all APIs
+  }
+}
+\`\`\`
+
+## Project Structure
+
+\`\`\`
+src/
+├── routes/         # API routes
+├── services/       # API integration services
+├── utils/          # Utility functions
+└── server.js       # Express server setup
+\`\`\`
+
+## Environment Variables
+
+See \`.env.example\` for required environment variables.
+
+## Error Handling
+
+The API includes comprehensive error handling. Check the console logs for detailed error messages during development.
+`;
+
+    const compiled = Handlebars.compile(template);
+    return compiled({ apis });
+  }
+
+  /**
+   * Generate frontend-specific README
+   */
+  private generateFrontendReadme(idea: AppIdea): string {
+    const template = `# {{appName}} - Frontend
+
+This is the frontend application for {{appName}}.
+
+## Description
+
+{{description}}
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm or yarn
+
+### Installation
+
+1. Install dependencies:
+   \`\`\`bash
+   npm install
+   \`\`\`
+
+2. Create a \`.env\` file based on \`.env.example\`:
+   \`\`\`bash
+   cp .env.example .env
+   \`\`\`
+
+3. Make sure the backend server is running on http://localhost:3000
+
+### Running the App
+
+Start the development server:
+
+\`\`\`bash
+npm start
+\`\`\`
+
+The app will open at [http://localhost:3001](http://localhost:3001)
+
+### Building for Production
+
+Create an optimized production build:
+
+\`\`\`bash
+npm run build
+\`\`\`
+
+The build folder will contain the production-ready files.
+
+## Project Structure
+
+\`\`\`
+src/
+├── components/     # React components
+├── services/       # API service layer
+├── App.jsx         # Main App component
+├── App.css         # App styles
+├── index.js        # Entry point
+└── index.css       # Global styles
+\`\`\`
+
+## Available Scripts
+
+- \`npm start\` - Runs the app in development mode
+- \`npm run build\` - Builds the app for production
+- \`npm test\` - Runs the test suite
+- \`npm run eject\` - Ejects from Create React App (one-way operation)
+
+## Learn More
+
+- [React Documentation](https://reactjs.org/)
+- [Create React App Documentation](https://create-react-app.dev/)
+
+## API Integration
+
+This frontend communicates with the backend API at the URL specified in your \`.env\` file.
+
+Make sure the backend server is running before starting the frontend.
+`;
+
+    const compiled = Handlebars.compile(template);
+    return compiled({
+      appName: idea.appName,
+      description: idea.description,
+    });
   }
 }

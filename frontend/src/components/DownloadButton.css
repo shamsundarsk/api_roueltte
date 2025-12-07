@@ -4,9 +4,9 @@
   font-weight: 700;
   cursor: pointer;
   border-radius: 10px;
-  border: 2px solid var(--primary-gradient-start);
-  background: var(--white);
-  color: var(--primary-gradient-start);
+  border: 2px solid #2ecc70;
+  background: transparent;
+  color: #2ecc70;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -34,16 +34,16 @@
 }
 
 .download-button:hover:not(:disabled) {
-  background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%);
-  color: var(--white);
+  background: #2ecc70;
+  color: #0f1419;
   transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
-  border-color: transparent;
+  box-shadow: 0 6px 16px rgba(46, 204, 112, 0.4);
+  border-color: #2ecc70;
 }
 
 .download-button:active:not(:disabled) {
   transform: translateY(-1px);
-  box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 3px 10px rgba(46, 204, 112, 0.3);
 }
 
 .download-button:disabled {
@@ -54,12 +54,12 @@
 
 .download-button:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+  box-shadow: 0 0 0 3px rgba(46, 204, 112, 0.2);
 }
 
 .download-button.success {
-  border-color: var(--success);
-  color: var(--success);
+  border-color: #2ecc70;
+  color: #2ecc70;
   animation: successPulse 0.5s ease-out;
 }
 
@@ -76,9 +76,9 @@
 }
 
 .download-button.success:hover:not(:disabled) {
-  background: var(--success);
-  color: var(--white);
-  border-color: transparent;
+  background: #2ecc70;
+  color: #0f1419;
+  border-color: #2ecc70;
 }
 
 .button-icon {

@@ -20,6 +20,7 @@ interface MashupState {
 interface MashupContextType extends MashupState {
   // Actions
   generate: () => Promise<void>;
+  generateCustom: (apiIds: string[]) => Promise<void>;
   regenerate: () => Promise<void>;
   download: () => Promise<void>;
   setMashupData: (data: MashupResponse | null) => void;
@@ -110,6 +111,43 @@ export const MashupProvider: React.FC<MashupProviderProps> = ({ children }) => {
   };
 
   /**
+   * Generate a custom mashup with user-selected APIs
+   */
+  const generateCustom = async (apiIds: string[]): Promise<void> => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      // Call the custom generation endpoint
+      const response = await fetch('/api/mashup/generate-custom', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ apiIds }),
+      });
+
+      const data = await response.json();
+
+      if (!data.success) {
+        throw new Error(data.error?.message || 'Failed to generate custom mashup');
+      }
+
+      // Set the mashup data
+      setMashupData(data.data);
+      
+      // Track the API IDs for future regenerations
+      setPreviousAPIIds(data.data.idea.apis.map((api: any) => api.id));
+      
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to generate custom mashup';
+      setError(errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  /**
    * Download the current mashup project
    * Fetches the ZIP file from the backend and triggers browser download
    */
@@ -168,6 +206,7 @@ export const MashupProvider: React.FC<MashupProviderProps> = ({ children }) => {
     
     // Actions
     generate,
+    generateCustom,
     regenerate,
     download,
     setMashupData,

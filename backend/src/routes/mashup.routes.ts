@@ -64,6 +64,53 @@ router.post(
 );
 
 /**
+ * POST /api/mashup/generate-custom
+ * Generate a mashup with user-selected APIs
+ */
+router.post(
+  '/generate-custom',
+  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const { apiIds } = req.body;
+
+      if (!apiIds || !Array.isArray(apiIds) || apiIds.length === 0) {
+        res.status(400).json({
+          success: false,
+          error: {
+            code: 'INVALID_REQUEST',
+            message: 'apiIds must be a non-empty array',
+          },
+        });
+        return;
+      }
+
+      logger.logInfo('Custom mashup generation requested', { apiIds, ip: req.ip });
+
+      // Generate mashup with specific APIs
+      const result = await pipeline.generateCustomMashup(apiIds);
+
+      // Check if result is an error
+      if ('success' in result && result.success === false) {
+        res.status(400).json(result);
+        return;
+      }
+
+      // Return success response
+      logger.logInfo('Custom mashup generation successful', { 
+        mashupId: 'id' in result ? result.id : 'unknown',
+        appName: 'idea' in result ? result.idea.appName : 'unknown',
+      });
+      res.status(200).json({
+        success: true,
+        data: result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+/**
  * GET /api/mashup/download/:filename
  * Download the ZIP archive for a generated mashup
  * Validates: Requirements 3.1

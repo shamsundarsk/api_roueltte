@@ -1,7 +1,6 @@
-import axios from 'axios';
-import { getEnvConfig } from '../utils/validateEnv';
 import { logger } from '../utils/errorLogger';
 import { MashupResponse } from '../types/api.types';
+import * as ollamaClient from '../modules/idea-generator/ollamaClient';
 
 /**
  * Message in a chat conversation
@@ -37,31 +36,27 @@ export interface ChatResponse {
 /**
  * AI Chatbot Service for helping users with their downloaded projects
  * This service provides context-aware assistance for generated mashup projects
+ * Now powered by Ollama (local LLM) - no API keys required!
  */
 export class AIChatbotService {
-  private apiKey: string | undefined;
   private model: string;
-  private apiUrl: string;
 
   constructor() {
-    const config = getEnvConfig();
-    this.apiKey = config.AI_API_KEY;
-    this.model = config.AI_MODEL || 'gpt-4';
-    this.apiUrl = config.AI_API_URL || 'https://api.openai.com/v1/chat/completions';
+    this.model = process.env.OLLAMA_MODEL || 'llama3';
   }
 
   /**
-   * Check if the AI service is configured
+   * Check if the AI service is configured (Ollama is available)
    */
-  isConfigured(): boolean {
-    return !!this.apiKey && this.apiKey !== 'your_api_key_here';
+  async isConfigured(): Promise<boolean> {
+    return await ollamaClient.isAvailable();
   }
 
   /**
    * Generate a system prompt based on project context
    */
   private generateSystemPrompt(projectContext?: MashupResponse): string {
-    let systemPrompt = `You are an expert AI assistant specialized in helping developers with Mashup Maker projects. 
+    let systemPrompt = `You are an expert AI assistant specialized in helping developers with API Roulette projects. 
 
 Your expertise includes:
 - Full-stack development (Node.js/Express backend, React frontend)
@@ -154,31 +149,30 @@ Error Message: ${errorContext.errorMessage}`;
   }
 
   /**
-   * Chat with the AI assistant
+   * Chat with the AI assistant using Ollama
    */
   async chat(request: ChatRequest): Promise<ChatResponse> {
-    if (!this.isConfigured()) {
-      throw new Error('AI service is not configured. Please add your AI_API_KEY to the .env file.');
+    const isAvailable = await this.isConfigured();
+    if (!isAvailable) {
+      throw new Error('Ollama is not running. Please start Ollama with: ollama serve');
     }
 
     try {
-      // Build conversation history
-      const messages: ChatMessage[] = [];
+      // Build the full prompt with context
+      let fullPrompt = '';
 
       // Add system prompt
       const systemPrompt = this.generateSystemPrompt(request.projectContext);
-      messages.push({
-        role: 'system',
-        content: systemPrompt,
-      });
+      fullPrompt += systemPrompt + '\n\n';
 
       // Add conversation history if provided
       if (request.conversationHistory && request.conversationHistory.length > 0) {
-        // Skip the old system message if present
-        const historyWithoutSystem = request.conversationHistory.filter(
-          msg => msg.role !== 'system'
-        );
-        messages.push(...historyWithoutSystem);
+        fullPrompt += 'CONVERSATION HISTORY:\n';
+        request.conversationHistory.forEach(msg => {
+          if (msg.role !== 'system') {
+            fullPrompt += `${msg.role.toUpperCase()}: ${msg.content}\n\n`;
+          }
+        });
       }
 
       // Add current user message with error context if provided
@@ -187,50 +181,37 @@ Error Message: ${errorContext.errorMessage}`;
         userMessage += this.generateErrorPrompt(request.errorContext);
       }
 
-      messages.push({
-        role: 'user',
-        content: userMessage,
-      });
+      fullPrompt += `USER: ${userMessage}\n\nASSISTANT:`;
 
-      logger.logInfo('Sending chat request to AI service', {
+      logger.logInfo('Sending chat request to Ollama', {
         model: this.model,
-        messageCount: messages.length,
         hasProjectContext: !!request.projectContext,
         hasErrorContext: !!request.errorContext,
+        hasHistory: !!request.conversationHistory?.length,
       });
 
-      // Call AI API
-      const response = await axios.post(
-        this.apiUrl,
-        {
-          model: this.model,
-          messages: messages,
-          temperature: 0.7,
-          max_tokens: 2000,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${this.apiKey}`,
-          },
-          timeout: 30000,
-        }
-      );
-
-      const assistantMessage = response.data.choices[0].message.content;
+      // Call Ollama
+      const assistantMessage = await ollamaClient.generate(fullPrompt, {
+        model: this.model,
+        temperature: 0.7,
+        max_tokens: 2000,
+      });
 
       // Build updated conversation history
       const updatedHistory: ChatMessage[] = [
-        ...messages.filter(msg => msg.role !== 'system'),
+        ...(request.conversationHistory || []).filter(msg => msg.role !== 'system'),
+        {
+          role: 'user',
+          content: request.message,
+        },
         {
           role: 'assistant',
           content: assistantMessage,
         },
       ];
 
-      logger.logInfo('AI chat response received', {
+      logger.logInfo('Ollama chat response received', {
         responseLength: assistantMessage.length,
-        tokensUsed: response.data.usage?.total_tokens,
       });
 
       return {
@@ -239,21 +220,18 @@ Error Message: ${errorContext.errorMessage}`;
       };
     } catch (error) {
       logger.logError(error as Error, {
-        context: 'AI chat request failed',
+        context: 'Ollama chat request failed',
         hasProjectContext: !!request.projectContext,
       });
 
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === 401) {
-          throw new Error('Invalid AI API key. Please check your AI_API_KEY in the .env file.');
+      if (error instanceof Error) {
+        if (error.message.includes('Could not connect to Ollama')) {
+          throw new Error('Could not connect to Ollama. Make sure Ollama is running: ollama serve');
         }
-        if (error.response?.status === 429) {
-          throw new Error('AI API rate limit exceeded. Please try again later.');
-        }
-        throw new Error(`AI API error: ${error.response?.data?.error?.message || error.message}`);
+        throw error;
       }
 
-      throw new Error('Failed to communicate with AI service. Please try again.');
+      throw new Error('Failed to communicate with Ollama. Please try again.');
     }
   }
 

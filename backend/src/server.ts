@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import mashupRoutes from './routes/mashup.routes';
 import registryRoutes from './routes/registry.routes';
 import chatbotRoutes from './routes/chatbot.routes';
+import { router as ideaGeneratorRouter } from './modules/idea-generator';
 import { errorHandler, notFoundHandler } from './middleware/errorHandler';
 import { validateEnv, getEnvConfig } from './utils/validateEnv';
 import { ZIPExporter } from './exporter/ZIPExporter';
@@ -39,6 +40,7 @@ app.get('/health', (_req, res) => {
 app.use('/api/mashup', mashupRoutes);
 app.use('/api/registry', registryRoutes);
 app.use('/api/chatbot', chatbotRoutes);
+app.use('/api', ideaGeneratorRouter);
 
 // Error handling middleware (must be last)
 app.use(notFoundHandler);

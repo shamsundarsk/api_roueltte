@@ -179,4 +179,72 @@ export class APISelector {
     const randomIndex = Math.floor(Math.random() * array.length);
     return array[randomIndex];
   }
+
+  /**
+   * Select specific APIs by their IDs
+   * @param apiIds - Array of API IDs to select
+   * @returns Array of selected API metadata
+   * @throws Error if any API ID is not found
+   */
+  selectSpecificAPIs(apiIds: string[]): APIMetadata[] {
+    const selectedAPIs: APIMetadata[] = [];
+    const allAPIs = this.registry.getAllAPIs();
+
+    for (const id of apiIds) {
+      const api = allAPIs.find(a => a.id === id);
+      if (!api) {
+        logger.logWarning('API not found for manual selection', { apiId: id });
+        throw new Error(`API with ID "${id}" not found`);
+      }
+      selectedAPIs.push(api);
+    }
+
+    // Validate uniqueness
+    if (!this.ensureUniqueness(selectedAPIs)) {
+      logger.logError(new Error('Duplicate APIs in manual selection'), {
+        apiIds,
+      });
+      throw new Error('Duplicate APIs selected');
+    }
+
+    logger.logInfo('Specific APIs selected successfully', {
+      count: selectedAPIs.length,
+      apis: selectedAPIs.map(api => ({ id: api.id, name: api.name, category: api.category })),
+    });
+
+    return selectedAPIs;
+  }
+
+  /**
+   * Get all available categories
+   * @returns Array of unique category names
+   */
+  getAvailableCategories(): string[] {
+    const allAPIs = this.registry.getAllAPIs();
+    const categories = new Set<string>();
+    
+    for (const api of allAPIs) {
+      categories.add(api.category);
+    }
+    
+    return Array.from(categories).sort();
+  }
+
+  /**
+   * Get APIs grouped by category
+   * @returns Map of category names to arrays of APIs
+   */
+  getAPIsByCategory(): Map<string, APIMetadata[]> {
+    const allAPIs = this.registry.getAllAPIs();
+    const apisByCategory = new Map<string, APIMetadata[]>();
+    
+    for (const api of allAPIs) {
+      if (!apisByCategory.has(api.category)) {
+        apisByCategory.set(api.category, []);
+      }
+      apisByCategory.get(api.category)!.push(api);
+    }
+    
+    return apisByCategory;
+  }
 }

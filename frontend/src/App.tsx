@@ -4,8 +4,9 @@ import {
   LoadingSpinner,
   MashupResults,
 } from './components';
+import { FAQ } from './components/FAQ';
 import { AIChatbot } from './components/AIChatbot';
-import { DiceIcon, LightbulbIcon, CompassIcon, RocketIcon, RobotIcon, AlertIcon } from './components/Icons';
+import { DiceIcon, LightbulbIcon, CompassIcon, RocketIcon, AlertIcon, RobotIcon } from './components/Icons';
 import { useMashup } from './context';
 
 function App() {
@@ -18,13 +19,19 @@ function App() {
     download,
     clearError,
     isDownloading,
-    downloadSuccess
+    downloadSuccess,
+    generateCustom
   } = useMashup();
   
+  const [isFAQOpen, setIsFAQOpen] = useState(false);
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
   const handleGenerate = () => {
     generate();
+  };
+
+  const handleCustomGenerate = (apiIds: string[]) => {
+    generateCustom(apiIds);
   };
 
   const handleDownload = () => {
@@ -48,17 +55,16 @@ function App() {
           <div className="header-content">
             <div className="logo-section">
               <div className="logo-icon">
-                <svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z"></path>
-                </svg>
+                <DiceIcon size={32} color="#2ecc70" />
               </div>
               <h1 className="logo-title">API Roulette</h1>
             </div>
             <div className="header-nav">
               <button 
-                className="login-btn"
+                className="faq-btn"
                 onClick={() => setIsChatbotOpen(true)}
               >
+                <RobotIcon size={18} />
                 AI Assistant
               </button>
             </div>
@@ -85,6 +91,7 @@ function App() {
               mashupData={mashupData}
               onDownload={handleDownload}
               onRegenerate={handleRegenerate}
+              onCustomGenerate={handleCustomGenerate}
               isDownloading={isDownloading}
               downloadSuccess={downloadSuccess}
             />
@@ -96,11 +103,16 @@ function App() {
           onClose={() => setIsChatbotOpen(false)} 
         />
 
+        <FAQ 
+          isOpen={isFAQOpen} 
+          onClose={() => setIsFAQOpen(false)} 
+        />
+
         {!isChatbotOpen && (
           <button 
-            className="chatbot-fab"
+            className="faq-fab"
             onClick={() => setIsChatbotOpen(true)}
-            title="AI Project Assistant"
+            title="AI Assistant"
           >
             <RobotIcon size={24} color="white" />
           </button>
@@ -124,10 +136,15 @@ function App() {
           <div className="header-nav">
             <nav className="nav-links">
               <a href="#features" className="nav-link" onClick={scrollToFeatures}>Features</a>
-              <a href="#pricing" className="nav-link">Pricing</a>
-              <a href="#about" className="nav-link">About</a>
+              <a href="#how-it-works" className="nav-link" onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
+              }}>How It Works</a>
+              <a href="#contact" className="nav-link" onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('footer')?.scrollIntoView({ behavior: 'smooth' });
+              }}>Contact</a>
             </nav>
-            <button className="login-btn">Login</button>
           </div>
         </div>
       </header>
@@ -156,6 +173,7 @@ function App() {
               Randomly combine 3 powerful APIs to spark innovative projects.
             </p>
             <button className="hero-cta" onClick={handleGenerate}>
+              <DiceIcon size={20} />
               Start Your Hackathon Journey
             </button>
           </div>
@@ -245,37 +263,65 @@ function App() {
             Stop waiting for inspiration to strike. Generate your first idea now and see where it takes you.
           </p>
           <button className="hero-cta" onClick={handleGenerate}>
+            <DiceIcon size={20} />
             Start Your Hackathon Journey
           </button>
         </section>
       )}
 
       {/* Footer */}
-      <footer className="app-footer">
+      <footer id="footer" className="app-footer">
         <div className="footer-content">
-          <div className="footer-links">
-            <a href="#contact" className="footer-link">Contact</a>
-            <a href="#privacy" className="footer-link">Privacy Policy</a>
-            <a href="#terms" className="footer-link">Terms of Service</a>
+          <div className="footer-top">
+            <div className="footer-brand">
+              <div className="footer-logo">
+                <DiceIcon size={32} color="#2ecc70" />
+                <span className="footer-brand-name">API Roulette</span>
+              </div>
+              <p className="footer-tagline">
+                Spark innovation by combining powerful APIs into unique hackathon projects.
+              </p>
+            </div>
+            
+            <div className="footer-links-grid">
+              <div className="footer-column">
+                <h4 className="footer-column-title">Product</h4>
+                <a href="#features" className="footer-link">Features</a>
+                <a href="#how-it-works" className="footer-link">How It Works</a>
+                <a href="#" className="footer-link">API Registry</a>
+              </div>
+              
+              <div className="footer-column">
+                <h4 className="footer-column-title">Resources</h4>
+                <a href="#" className="footer-link">Documentation</a>
+                <a href="#" className="footer-link">API Guide</a>
+                <a href="#" className="footer-link">Blog</a>
+              </div>
+              
+              <div className="footer-column">
+                <h4 className="footer-column-title">Contact</h4>
+                <a href="mailto:contact@porygon.dev" className="footer-link">contact@porygon.dev</a>
+                <a href="#" className="footer-link">Support</a>
+                <a href="#" className="footer-link">Feedback</a>
+              </div>
+            </div>
           </div>
-          <div className="footer-social">
-            <a href="#twitter" className="social-link">
-              <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.71v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
-              </svg>
-            </a>
-            <a href="#github" className="social-link">
-              <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                <path fillRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clipRule="evenodd"></path>
-              </svg>
-            </a>
-            <a href="#linkedin" className="social-link">
-              <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                <path fillRule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clipRule="evenodd"></path>
-              </svg>
-            </a>
+          
+          <div className="footer-bottom">
+            <div className="footer-legal">
+              <p className="footer-copyright">
+                © 2024 Porygon. All rights reserved.
+              </p>
+              <p className="footer-creator">
+                Created by <span className="creator-name">Porygon</span>
+              </p>
+            </div>
+            <div className="footer-legal-links">
+              <a href="#privacy" className="footer-legal-link">Privacy Policy</a>
+              <span className="footer-separator">•</span>
+              <a href="#terms" className="footer-legal-link">Terms of Service</a>
+            </div>
           </div>
-          <p className="footer-copyright">© 2024 API Roulette. All rights reserved.</p>
         </div>
       </footer>
     </div>

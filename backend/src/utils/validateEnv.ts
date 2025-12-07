@@ -9,9 +9,8 @@ interface EnvConfig {
   TEMP_DIR: string;
   MAX_ZIP_SIZE_MB: number;
   CLEANUP_INTERVAL_HOURS: number;
-  AI_API_KEY?: string;
-  AI_MODEL?: string;
-  AI_API_URL?: string;
+  OLLAMA_URL?: string;
+  OLLAMA_MODEL?: string;
 }
 
 const VALID_NODE_ENVS = ['development', 'production', 'test'];
@@ -72,9 +71,8 @@ export function validateEnv(): EnvConfig {
     TEMP_DIR: tempDir,
     MAX_ZIP_SIZE_MB: maxZipSizeNum,
     CLEANUP_INTERVAL_HOURS: cleanupIntervalNum,
-    AI_API_KEY: process.env.AI_API_KEY,
-    AI_MODEL: process.env.AI_MODEL || 'gpt-4',
-    AI_API_URL: process.env.AI_API_URL || 'https://api.openai.com/v1/chat/completions',
+    OLLAMA_URL: process.env.OLLAMA_URL || 'http://localhost:11434',
+    OLLAMA_MODEL: process.env.OLLAMA_MODEL || 'llama3',
   };
 }
 
@@ -89,8 +87,7 @@ export function getEnvConfig(): EnvConfig {
     TEMP_DIR: process.env.TEMP_DIR || '/tmp/mashup-maker',
     MAX_ZIP_SIZE_MB: parseInt(process.env.MAX_ZIP_SIZE_MB || '50', 10),
     CLEANUP_INTERVAL_HOURS: parseInt(process.env.CLEANUP_INTERVAL_HOURS || '24', 10),
-    AI_API_KEY: process.env.AI_API_KEY,
-    AI_MODEL: process.env.AI_MODEL || 'gpt-4',
-    AI_API_URL: process.env.AI_API_URL || 'https://api.openai.com/v1/chat/completions',
+    OLLAMA_URL: process.env.OLLAMA_URL || 'http://localhost:11434',
+    OLLAMA_MODEL: process.env.OLLAMA_MODEL || 'llama3',
   };
 }

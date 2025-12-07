@@ -932,375 +932,323 @@
       "documentationUrl": "https://developer.squareup.com/docs"
     },
     {
-      "id": "pokemon",
-      "name": "PokéAPI",
-      "description": "Pokémon data including species, abilities, and moves",
-      "category": "gaming",
-      "baseUrl": "https://pokeapi.co",
-      "sampleEndpoint": "/api/v2/pokemon/ditto",
+      "id": "test-api-1764516194106",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://pokeapi.co/docs/v2"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "rawg",
-      "name": "RAWG Video Games Database",
-      "description": "Video game database with 500,000+ games",
-      "category": "gaming",
-      "baseUrl": "https://api.rawg.io",
-      "sampleEndpoint": "/api/games",
-      "authType": "apikey",
-      "corsCompatible": true,
-      "mockData": {
-        "games": [
-          {
-            "name": "The Witcher 3",
-            "rating": 4.5
-          }
-        ]
-      },
-      "documentationUrl": "https://rawg.io/apidocs"
-    },
-    {
-      "id": "steam",
-      "name": "Steam Web API",
-      "description": "Steam game data, player stats, and achievements",
-      "category": "gaming",
-      "baseUrl": "https://api.steampowered.com",
-      "sampleEndpoint": "/ISteamApps/GetAppList/v2",
-      "authType": "apikey",
-      "corsCompatible": true,
-      "mockData": {
-        "apps": [
-          {
-            "appid": 570,
-            "name": "Dota 2"
-          }
-        ]
-      },
-      "documentationUrl": "https://steamcommunity.com/dev"
-    },
-    {
-      "id": "cocktaildb",
-      "name": "TheCocktailDB",
-      "description": "Cocktail recipes and ingredients",
-      "category": "food",
-      "baseUrl": "https://www.thecocktaildb.com",
-      "sampleEndpoint": "/api/json/v1/1/search.php?s=margarita",
+      "id": "test-api-duplicate",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://www.thecocktaildb.com/api.php"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "mealdb",
-      "name": "TheMealDB",
-      "description": "Meal recipes from around the world",
-      "category": "food",
-      "baseUrl": "https://www.themealdb.com",
-      "sampleEndpoint": "/api/json/v1/1/search.php?s=Arrabiata",
+      "id": "test-api-1764516226844",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://www.themealdb.com/api.php"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "catfacts",
-      "name": "Cat Facts API",
-      "description": "Random cat facts",
-      "category": "animals",
-      "baseUrl": "https://catfact.ninja",
-      "sampleEndpoint": "/fact",
+      "id": "test-api-1764516251178",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://catfact.ninja"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "dogapi",
-      "name": "Dog API",
-      "description": "Random dog images by breed",
-      "category": "animals",
-      "baseUrl": "https://dog.ceo",
-      "sampleEndpoint": "/api/breeds/image/random",
+      "id": "test-api-1764516331724",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://dog.ceo/dog-api"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "thecatapi",
-      "name": "The Cat API",
-      "description": "Cat images, breeds, and facts",
-      "category": "animals",
-      "baseUrl": "https://api.thecatapi.com",
-      "sampleEndpoint": "/v1/images/search",
-      "authType": "apikey",
-      "corsCompatible": true,
-      "mockData": {
-        "url": "https://cdn2.thecatapi.com/images/sample.jpg"
-      },
-      "documentationUrl": "https://thecatapi.com"
-    },
-    {
-      "id": "quotes",
-      "name": "Quotable API",
-      "description": "Random quotes and authors",
-      "category": "quotes",
-      "baseUrl": "https://api.quotable.io",
-      "sampleEndpoint": "/random",
+      "id": "test-api-1764516356797",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://github.com/lukePeavey/quotable"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "adviceslip",
-      "name": "Advice Slip API",
-      "description": "Random pieces of advice",
-      "category": "quotes",
-      "baseUrl": "https://api.adviceslip.com",
-      "sampleEndpoint": "/advice",
+      "id": "test-api-1764516692615",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://api.adviceslip.com"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "jokesapi",
-      "name": "JokeAPI",
-      "description": "Programming and general jokes",
-      "category": "entertainment",
-      "baseUrl": "https://v2.jokeapi.dev",
-      "sampleEndpoint": "/joke/Programming",
+      "id": "test-api-1764517077979",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://jokeapi.dev"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "chucknorris",
-      "name": "Chuck Norris Jokes API",
-      "description": "Random Chuck Norris jokes",
-      "category": "entertainment",
-      "baseUrl": "https://api.chucknorris.io",
-      "sampleEndpoint": "/jokes/random",
+      "id": "test-api-1764517150212",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://api.chucknorris.io"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "ipapi",
-      "name": "IP API",
-      "description": "IP geolocation and information",
-      "category": "utilities",
-      "baseUrl": "http://ip-api.com",
-      "sampleEndpoint": "/json",
+      "id": "test-api-1764517461982",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://ip-api.com/docs"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "qrcode",
-      "name": "QR Code Generator API",
-      "description": "Generate QR codes",
-      "category": "utilities",
-      "baseUrl": "https://api.qrserver.com",
-      "sampleEndpoint": "/v1/create-qr-code/?data=HelloWorld",
+      "id": "test-api-1764517490628",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://goqr.me/api"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "urlshortener",
-      "name": "TinyURL API",
-      "description": "URL shortening service",
-      "category": "utilities",
-      "baseUrl": "https://tinyurl.com",
-      "sampleEndpoint": "/api-create.php",
+      "id": "test-api-1764517587349",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://tinyurl.com/app/dev"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "randomuser",
-      "name": "Random User Generator",
-      "description": "Generate random user data",
-      "category": "utilities",
-      "baseUrl": "https://randomuser.me",
-      "sampleEndpoint": "/api",
+      "id": "test-api-1764517609685",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://randomuser.me/documentation"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "agify",
-      "name": "Agify API",
-      "description": "Predict age from name",
-      "category": "utilities",
-      "baseUrl": "https://api.agify.io",
-      "sampleEndpoint": "/?name=michael",
+      "id": "test-api-1764517804726",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://agify.io"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "genderize",
-      "name": "Genderize API",
-      "description": "Predict gender from name",
-      "category": "utilities",
-      "baseUrl": "https://api.genderize.io",
-      "sampleEndpoint": "/?name=peter",
+      "id": "test-api-1764517997743",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://genderize.io"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "nationalize",
-      "name": "Nationalize API",
-      "description": "Predict nationality from name",
-      "category": "utilities",
-      "baseUrl": "https://api.nationalize.io",
-      "sampleEndpoint": "/?name=michael",
+      "id": "test-api-1764518068948",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://nationalize.io"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "bored",
-      "name": "Bored API",
-      "description": "Find random activities to do",
-      "category": "entertainment",
-      "baseUrl": "https://www.boredapi.com",
-      "sampleEndpoint": "/api/activity",
+      "id": "test-api-1764518280053",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://www.boredapi.com/documentation"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "numbersapi",
-      "name": "Numbers API",
-      "description": "Interesting facts about numbers",
-      "category": "education",
-      "baseUrl": "http://numbersapi.com",
-      "sampleEndpoint": "/42",
+      "id": "test-api-1764518301723",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "http://numbersapi.com"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "dictionary",
-      "name": "Free Dictionary API",
-      "description": "Word definitions and meanings",
-      "category": "education",
-      "baseUrl": "https://api.dictionaryapi.dev",
-      "sampleEndpoint": "/api/v2/entries/en/hello",
+      "id": "test-api-1764520044897",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://dictionaryapi.dev"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "wikipedia",
-      "name": "Wikipedia API",
-      "description": "Access Wikipedia content",
-      "category": "education",
-      "baseUrl": "https://en.wikipedia.org",
-      "sampleEndpoint": "/w/api.php?action=query&list=search&srsearch=javascript",
+      "id": "test-api-1764520990550",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://www.mediawiki.org/wiki/API:Main_page"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "carbon",
-      "name": "Carbon Interface API",
-      "description": "Calculate carbon emissions",
-      "category": "environment",
-      "baseUrl": "https://www.carboninterface.com",
-      "sampleEndpoint": "/api/v1/estimates",
-      "authType": "apikey",
-      "corsCompatible": true,
-      "mockData": {
-        "carbon_kg": 12.5
-      },
-      "documentationUrl": "https://docs.carboninterface.com"
-    },
-    {
-      "id": "openaq",
-      "name": "OpenAQ Air Quality API",
-      "description": "Real-time air quality data",
-      "category": "environment",
-      "baseUrl": "https://api.openaq.org",
-      "sampleEndpoint": "/v2/latest",
+      "id": "test-api-1764521624454",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://docs.openaq.org"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "sunrise",
-      "name": "Sunrise Sunset API",
-      "description": "Sunrise and sunset times",
-      "category": "weather",
-      "baseUrl": "https://api.sunrise-sunset.org",
-      "sampleEndpoint": "/json?lat=36.7201600&lng=-4.4203400",
+      "id": "test-api-1764685281418",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://sunrise-sunset.org/api"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "holidays",
-      "name": "Calendarific API",
-      "description": "Worldwide holidays and observances",
-      "category": "calendar",
-      "baseUrl": "https://calendarific.com",
-      "sampleEndpoint": "/api/v2/holidays",
-      "authType": "apikey",
-      "corsCompatible": true,
-      "mockData": {
-        "holidays": [
-          {
-            "name": "New Year's Day",
-            "date": "2024-01-01"
-          }
-        ]
-      },
-      "documentationUrl": "https://calendarific.com/api-documentation"
-    },
-    {
-      "id": "publicholidays",
-      "name": "Public Holidays API",
-      "description": "Public holidays by country",
-      "category": "calendar",
-      "baseUrl": "https://date.nager.at",
-      "sampleEndpoint": "/api/v3/PublicHolidays/2024/US",
+      "id": "test-api-1764685306006",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://date.nager.at/Api"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "color",
-      "name": "The Color API",
-      "description": "Color information and schemes",
-      "category": "design",
-      "baseUrl": "https://www.thecolorapi.com",
-      "sampleEndpoint": "/id?hex=FF5733",
+      "id": "test-api-1764685426788",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://www.thecolorapi.com/docs"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "loremipsum",
-      "name": "Lorem Ipsum API",
-      "description": "Generate placeholder text",
-      "category": "design",
-      "baseUrl": "https://loripsum.net",
-      "sampleEndpoint": "/api",
+      "id": "test-api-1764685683755",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://loripsum.net"
+      "documentationUrl": "https://docs.test.com"
     },
     {
-      "id": "placeholder",
-      "name": "Placeholder.com",
-      "description": "Generate placeholder images",
-      "category": "design",
-      "baseUrl": "https://via.placeholder.com",
-      "sampleEndpoint": "/150",
+      "id": "test-api-1764685707758",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
       "authType": "none",
       "corsCompatible": true,
-      "documentationUrl": "https://placeholder.com"
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764686321434",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764686727891",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-1764686762636",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
     }
   ]
 }

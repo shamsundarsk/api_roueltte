@@ -262,6 +262,176 @@ export class MashupPipeline {
 
 
   /**
+   * Generate a mashup with user-selected APIs
+   * @param apiIds - Array of API IDs to use
+   * @returns Promise resolving to MashupResponse or ErrorResponse
+   */
+  async generateCustomMashup(
+    apiIds: string[]
+  ): Promise<MashupResponse | ErrorResponse> {
+    const mashupId = this.generateMashupId();
+    const timestamp = Date.now();
+    let partialResult: Partial<MashupResponse> = {
+      id: mashupId,
+      timestamp,
+    };
+
+    try {
+      // Step 1: Select specific APIs
+      let selectedAPIs: APIMetadata[];
+      try {
+        selectedAPIs = this.selector.selectSpecificAPIs(apiIds);
+        logger.logInfo(`Selected ${selectedAPIs.length} custom APIs for mashup ${mashupId}`, {
+          apis: selectedAPIs.map(api => ({ id: api.id, name: api.name })),
+        });
+      } catch (error) {
+        logger.logError(
+          new PipelineError('Custom API selection failed', 'API_SELECTION', {
+            mashupId,
+            apiIds,
+            originalError: error instanceof Error ? error.message : String(error),
+          })
+        );
+        return this.createErrorResponse(
+          'API_SELECTION_FAILED',
+          error instanceof Error ? error.message : 'Failed to select specified APIs',
+          error,
+          partialResult
+        );
+      }
+
+      // Step 2: Generate App Idea
+      try {
+        const idea = this.ideaGenerator.generateIdea(selectedAPIs);
+        partialResult.idea = idea;
+        logger.logInfo(`Generated custom app idea: ${idea.appName}`, { mashupId });
+      } catch (error) {
+        logger.logWarning('Idea generation failed for custom mashup, attempting with mock mode fallback', {
+          mashupId,
+          originalError: error instanceof Error ? error.message : String(error),
+        });
+        try {
+          const mockAPIs = this.activateMockMode(selectedAPIs);
+          const idea = this.ideaGenerator.generateIdea(mockAPIs);
+          partialResult.idea = idea;
+          logger.logInfo(`Generated custom app idea with mock mode: ${idea.appName}`, { mashupId });
+        } catch (fallbackError) {
+          logger.logError(
+            new PipelineError('Idea generation failed even with mock mode', 'IDEA_GENERATION', {
+              mashupId,
+              originalError: fallbackError instanceof Error ? fallbackError.message : String(fallbackError),
+            })
+          );
+          return this.createErrorResponse(
+            'IDEA_GENERATION_FAILED',
+            'Failed to generate app idea',
+            fallbackError,
+            partialResult
+          );
+        }
+      }
+
+      // Step 3: Generate Code
+      let project;
+      try {
+        project = this.codeGenerator.generateProject(partialResult.idea!);
+        logger.logInfo('Generated code for custom mashup', { mashupId });
+      } catch (error) {
+        logger.logError(
+          new PipelineError('Code generation failed', 'CODE_GENERATION', {
+            mashupId,
+            originalError: error instanceof Error ? error.message : String(error),
+          })
+        );
+        return this.createErrorResponse(
+          'CODE_GENERATION_FAILED',
+          'Failed to generate project code',
+          error,
+          partialResult
+        );
+      }
+
+      // Step 4: Generate UI Layout Suggestions
+      try {
+        const uiLayout = this.uiLayoutSuggester.generateLayout(partialResult.idea!);
+        partialResult.uiLayout = uiLayout;
+        logger.logInfo('Generated UI layout suggestions', { mashupId });
+      } catch (error) {
+        logger.logError(
+          new PipelineError('UI layout generation failed', 'UI_LAYOUT_GENERATION', {
+            mashupId,
+            originalError: error instanceof Error ? error.message : String(error),
+          })
+        );
+        return this.createErrorResponse(
+          'UI_LAYOUT_GENERATION_FAILED',
+          'Failed to generate UI layout suggestions',
+          error,
+          partialResult
+        );
+      }
+
+      // Step 5: Generate Code Preview
+      try {
+        const codePreview = this.codePreviewGenerator.generatePreview(project);
+        partialResult.codePreview = codePreview;
+        logger.logInfo('Generated code preview', { mashupId });
+      } catch (error) {
+        logger.logError(
+          new PipelineError('Code preview generation failed', 'CODE_PREVIEW_GENERATION', {
+            mashupId,
+            originalError: error instanceof Error ? error.message : String(error),
+          })
+        );
+        return this.createErrorResponse(
+          'CODE_PREVIEW_GENERATION_FAILED',
+          'Failed to generate code preview',
+          error,
+          partialResult
+        );
+      }
+
+      // Step 6: Create ZIP Archive
+      try {
+        const zipPath = await this.zipExporter.createArchive(project, partialResult.idea!);
+        const filename = this.zipExporter.getFilename(zipPath);
+        partialResult.downloadUrl = `/api/mashup/download/${filename}`;
+        logger.logInfo('Created ZIP archive for custom mashup', { mashupId, filename });
+      } catch (error) {
+        logger.logError(
+          new PipelineError('ZIP creation failed', 'ZIP_CREATION', {
+            mashupId,
+            originalError: error instanceof Error ? error.message : String(error),
+          })
+        );
+        return this.createErrorResponse(
+          'ZIP_CREATION_FAILED',
+          'Failed to create downloadable archive',
+          error,
+          partialResult
+        );
+      }
+
+      // Return complete response
+      logger.logInfo('Custom mashup generation completed successfully', { mashupId });
+      return partialResult as MashupResponse;
+    } catch (error) {
+      logger.logError(
+        new PipelineError('Unexpected error in custom mashup pipeline', 'PIPELINE_ERROR', {
+          mashupId,
+          originalError: error instanceof Error ? error.message : String(error),
+        })
+      );
+      return this.createErrorResponse(
+        'PIPELINE_ERROR',
+        'An unexpected error occurred during mashup generation',
+        error,
+        partialResult
+      );
+    }
+  }
+
+  /**
    * Generate a unique mashup ID
    * 
    * @returns Unique mashup identifier

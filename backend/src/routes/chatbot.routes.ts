@@ -88,16 +88,16 @@ router.get(
  */
 router.get(
   '/status',
-  (_req: Request, res: Response): void => {
-    const isConfigured = chatbotService.isConfigured();
+  async (_req: Request, res: Response): Promise<void> => {
+    const isConfigured = await chatbotService.isConfigured();
 
     res.status(200).json({
       success: true,
       data: {
         configured: isConfigured,
         message: isConfigured
-          ? 'AI chatbot is ready'
-          : 'AI chatbot requires configuration. Please add AI_API_KEY to .env file.',
+          ? 'AI chatbot is ready (powered by Ollama)'
+          : 'AI chatbot requires Ollama. Please run: ollama serve',
       },
     });
   }

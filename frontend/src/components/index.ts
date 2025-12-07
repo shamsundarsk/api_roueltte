@@ -8,3 +8,4 @@ export { default as DownloadButton } from './DownloadButton';
 export { default as RegenerateButton } from './RegenerateButton';
 export { default as MashupResults } from './MashupResults';
 export * from './Icons';
+export * from './FAQ';

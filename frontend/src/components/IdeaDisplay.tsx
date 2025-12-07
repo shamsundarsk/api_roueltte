@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppIdea } from '../types';
-import { LightbulbIcon, ZapIcon } from './Icons';
+import { LightbulbIcon, ZapIcon, CodeIcon } from './Icons';
 
 interface IdeaDisplayProps {
   idea: AppIdea;
@@ -9,10 +9,10 @@ interface IdeaDisplayProps {
 const IdeaDisplay: React.FC<IdeaDisplayProps> = ({ idea }) => {
   return (
     <div style={{
-      background: 'linear-gradient(135deg, rgba(124, 58, 237, 0.05) 0%, rgba(20, 184, 166, 0.05) 100%)',
-      border: '1px solid var(--color-border)',
-      borderRadius: '20px',
-      padding: 'var(--space-10)',
+      background: '#1a1f2e',
+      border: '1px solid rgba(46, 204, 112, 0.2)',
+      borderRadius: '16px',
+      padding: '48px',
       position: 'relative',
       overflow: 'hidden'
     }}>
@@ -23,7 +23,7 @@ const IdeaDisplay: React.FC<IdeaDisplayProps> = ({ idea }) => {
         right: '-50px',
         width: '200px',
         height: '200px',
-        background: 'radial-gradient(circle, rgba(124, 58, 237, 0.1) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(46, 204, 112, 0.08) 0%, transparent 70%)',
         borderRadius: '50%',
         pointerEvents: 'none'
       }} />
@@ -32,29 +32,29 @@ const IdeaDisplay: React.FC<IdeaDisplayProps> = ({ idea }) => {
         <div style={{
           display: 'inline-flex',
           alignItems: 'center',
-          gap: 'var(--space-2)',
-          padding: '6px 14px',
-          background: 'rgba(124, 58, 237, 0.1)',
-          borderRadius: '20px',
-          marginBottom: 'var(--space-5)'
+          gap: '8px',
+          padding: '8px 16px',
+          background: 'rgba(46, 204, 112, 0.1)',
+          borderRadius: '8px',
+          marginBottom: '24px'
         }}>
-          <LightbulbIcon size={16} color="var(--color-primary)" />
+          <LightbulbIcon size={18} color="#2ecc70" />
           <span style={{
-            fontSize: '13px',
-            fontWeight: 600,
-            color: 'var(--color-primary)',
+            fontSize: '14px',
+            fontWeight: 700,
+            color: '#2ecc70',
             textTransform: 'uppercase',
             letterSpacing: '0.05em'
           }}>
-            App Concept
+            Your Mashup Idea
           </span>
         </div>
 
         <h2 style={{
-          fontSize: '32px',
-          fontWeight: 700,
-          color: 'var(--color-text)',
-          marginBottom: 'var(--space-4)',
+          fontSize: '40px',
+          fontWeight: 900,
+          color: '#ffffff',
+          marginBottom: '16px',
           letterSpacing: '-0.02em',
           lineHeight: '1.2'
         }}>
@@ -62,140 +62,137 @@ const IdeaDisplay: React.FC<IdeaDisplayProps> = ({ idea }) => {
         </h2>
 
         <p style={{
-          fontSize: '17px',
-          color: 'var(--color-text-secondary)',
-          lineHeight: '1.7',
-          marginBottom: 'var(--space-8)',
-          maxWidth: '720px'
+          fontSize: '18px',
+          color: '#a0aec0',
+          lineHeight: '1.8',
+          marginBottom: '32px',
+          fontWeight: 400
         }}>
           {idea.description}
         </p>
 
+        {/* Use Case Explanation */}
         <div style={{
-          display: 'grid',
-          gap: 'var(--space-6)',
-          marginTop: 'var(--space-8)'
+          background: 'rgba(46, 204, 112, 0.1)',
+          border: '2px solid #2ecc70',
+          borderRadius: '12px',
+          padding: '24px',
+          marginBottom: '32px'
         }}>
-          {/* Features */}
-          <div>
-            <h3 style={{
-              fontSize: '16px',
-              fontWeight: 600,
-              color: 'var(--color-text)',
-              marginBottom: 'var(--space-4)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.05em',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 'var(--space-2)'
-            }}>
-              <span style={{
-                width: '24px',
-                height: '24px',
-                background: 'var(--color-primary)',
-                borderRadius: '6px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '12px'
-              }}>
-                <ZapIcon size={14} color="white" />
-              </span>
-              <span>Key Features</span>
-            </h3>
-            <div style={{
-              display: 'grid',
-              gap: 'var(--space-3)'
-            }}>
-              {idea.features.map((feature, index) => (
-                <div
-                  key={index}
-                  style={{
-                    display: 'flex',
-                    gap: 'var(--space-3)',
-                    padding: 'var(--space-4)',
-                    background: 'var(--color-surface)',
-                    border: '1px solid var(--color-border)',
-                    borderRadius: '12px',
-                    transition: 'all 0.2s',
-                    animation: `slideUp 0.3s ease-out ${index * 0.05}s both`
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateX(4px)';
-                    e.currentTarget.style.borderColor = 'var(--color-primary)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateX(0)';
-                    e.currentTarget.style.borderColor = 'var(--color-border)';
-                  }}
-                >
-                  <span style={{
-                    width: '24px',
-                    height: '24px',
-                    background: 'var(--color-bg-alt)',
-                    borderRadius: '6px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '12px',
-                    fontWeight: 600,
-                    color: 'var(--color-primary)',
-                    flexShrink: 0
-                  }}>
-                    {index + 1}
-                  </span>
-                  <span style={{
-                    fontSize: '15px',
-                    color: 'var(--color-text)',
-                    lineHeight: '1.6'
-                  }}>
-                    {feature}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Rationale */}
           <div style={{
-            padding: 'var(--space-6)',
-            background: 'var(--color-surface)',
-            border: '1px solid var(--color-border)',
-            borderRadius: '16px',
-            borderLeft: '4px solid var(--color-secondary)'
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            marginBottom: '16px'
           }}>
-            <h3 style={{
-              fontSize: '16px',
-              fontWeight: 600,
-              color: 'var(--color-text)',
-              marginBottom: 'var(--space-3)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.05em',
+            <div style={{
+              width: '32px',
+              height: '32px',
+              background: '#2ecc70',
+              borderRadius: '8px',
               display: 'flex',
               alignItems: 'center',
-              gap: 'var(--space-2)'
+              justifyContent: 'center'
             }}>
-              <span style={{
-                width: '24px',
-                height: '24px',
-                background: 'var(--color-secondary)',
-                borderRadius: '6px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '12px'
-              }}>
-                <LightbulbIcon size={14} color="white" />
-              </span>
-              <span>Why This Works</span>
+              <CodeIcon size={18} color="white" />
+            </div>
+            <h3 style={{
+              fontSize: '18px',
+              fontWeight: 700,
+              color: '#ffffff',
+              margin: 0
+            }}>
+              How These 3 APIs Work Together
             </h3>
-            <p style={{
-              fontSize: '15px',
-              color: 'var(--color-text-secondary)',
-              lineHeight: '1.7'
+          </div>
+          <p style={{
+            fontSize: '16px',
+            color: '#e2e8f0',
+            lineHeight: '1.8',
+            margin: 0,
+            fontWeight: 500
+          }}>
+            {idea.rationale}
+          </p>
+        </div>
+
+        {/* Features */}
+        <div>
+          <h3 style={{
+            fontSize: '20px',
+            fontWeight: 700,
+            color: '#ffffff',
+            marginBottom: '20px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px'
+          }}>
+            <div style={{
+              width: '32px',
+              height: '32px',
+              background: '#2ecc70',
+              borderRadius: '8px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}>
-              {idea.rationale}
-            </p>
+              <ZapIcon size={18} color="white" />
+            </div>
+            <span>Key Features</span>
+          </h3>
+          <div style={{
+            display: 'grid',
+            gap: '12px'
+          }}>
+            {idea.features.map((feature, index) => (
+              <div
+                key={index}
+                style={{
+                  display: 'flex',
+                  gap: '16px',
+                  padding: '20px',
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(46, 204, 112, 0.2)',
+                  borderRadius: '12px',
+                  transition: 'all 0.2s',
+                  animation: `slideUp 0.3s ease-out ${index * 0.05}s both`
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateX(4px)';
+                  e.currentTarget.style.borderColor = '#2ecc70';
+                  e.currentTarget.style.background = 'rgba(46, 204, 112, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateX(0)';
+                  e.currentTarget.style.borderColor = 'rgba(46, 204, 112, 0.2)';
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+                }}
+              >
+                <span style={{
+                  width: '32px',
+                  height: '32px',
+                  background: '#2ecc70',
+                  borderRadius: '8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '16px',
+                  fontWeight: 700,
+                  color: '#0f1419',
+                  flexShrink: 0
+                }}>
+                  {index + 1}
+                </span>
+                <span style={{
+                  fontSize: '16px',
+                  color: '#ffffff',
+                  lineHeight: '1.8',
+                  fontWeight: 500
+                }}>
+                  {feature}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
