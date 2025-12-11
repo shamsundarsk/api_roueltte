@@ -289,6 +289,43 @@
   font-family: inherit;
 }
 
+/* Markdown Content Styling */
+.markdown-content {
+  font-family: inherit;
+  line-height: 1.7;
+}
+
+.markdown-content strong {
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.markdown-content em {
+  font-style: italic;
+  color: #4a5568;
+}
+
+.markdown-content code {
+  background: rgba(46, 204, 112, 0.1);
+  color: #2ecc70;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.markdown-content br {
+  display: block;
+  content: "";
+  margin: 8px 0;
+}
+
+.user-content {
+  font-family: inherit;
+  line-height: 1.6;
+}
+
 /* Typing Indicator */
 .chatbot-typing {
   display: flex;

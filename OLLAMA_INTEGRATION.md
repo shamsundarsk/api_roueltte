@@ -1,4 +1,4 @@
-# Ollama AI Idea Generator Integration Guide
+`# Ollama AI Idea Generator Integration Guide
 
 ## What's New?
 Added a local AI-powered idea generator module that runs entirely offline using Ollama. No API keys required!

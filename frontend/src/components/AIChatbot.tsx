@@ -4,6 +4,29 @@ import { sendChatMessage, getChatbotStatus, getQuickHelp, ChatMessage } from '..
 import { RobotIcon, UserIcon, PackageIcon, KeyIcon, BugIcon, ClipboardIcon } from './Icons';
 import './AIChatbot.css';
 
+/**
+ * Parse markdown-style formatting and convert to HTML
+ */
+const parseMarkdown = (text: string): string => {
+  let html = text;
+  
+  // Bold: **text** or __text__
+  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/__(.+?)__/g, '<strong>$1</strong>');
+  
+  // Italic: *text* or _text_
+  html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+  html = html.replace(/_(.+?)_/g, '<em>$1</em>');
+  
+  // Code: `code`
+  html = html.replace(/`(.+?)`/g, '<code>$1</code>');
+  
+  // Line breaks
+  html = html.replace(/\n/g, '<br/>');
+  
+  return html;
+};
+
 interface AIChatbotProps {
   isOpen: boolean;
   onClose: () => void;
@@ -191,7 +214,14 @@ export const AIChatbot: React.FC<AIChatbotProps> = ({ isOpen, onClose }) => {
                 {msg.role === 'user' ? <UserIcon size={20} /> : <RobotIcon size={20} />}
               </div>
               <div className="chatbot-message-content">
-                <pre>{msg.content}</pre>
+                {msg.role === 'assistant' ? (
+                  <div 
+                    className="markdown-content"
+                    dangerouslySetInnerHTML={{ __html: parseMarkdown(msg.content) }}
+                  />
+                ) : (
+                  <div className="user-content">{msg.content}</div>
+                )}
               </div>
             </div>
           ))}
