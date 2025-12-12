@@ -39,7 +39,7 @@ export function validateEnv(): EnvConfig {
   }
 
   // Validate TEMP_DIR
-  const tempDir = process.env.TEMP_DIR || '/tmp/mashup-maker';
+  const tempDir = process.env.TEMP_DIR || '/tmp/api-roulette';
   if (!tempDir || tempDir.trim() === '') {
     errors.push('TEMP_DIR must be a non-empty string');
   }
@@ -84,7 +84,7 @@ export function getEnvConfig(): EnvConfig {
   return {
     PORT: parseInt(process.env.PORT || '3000', 10),
     NODE_ENV: process.env.NODE_ENV || 'development',
-    TEMP_DIR: process.env.TEMP_DIR || '/tmp/mashup-maker',
+    TEMP_DIR: process.env.TEMP_DIR || '/tmp/api-roulette',
     MAX_ZIP_SIZE_MB: parseInt(process.env.MAX_ZIP_SIZE_MB || '50', 10),
     CLEANUP_INTERVAL_HOURS: parseInt(process.env.CLEANUP_INTERVAL_HOURS || '24', 10),
     OLLAMA_URL: process.env.OLLAMA_URL || 'http://localhost:11434',
