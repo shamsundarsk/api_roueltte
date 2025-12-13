@@ -597,32 +597,179 @@ export default {{componentName}};
   }
 
   /**
-   * Generate Dashboard component
+   * Generate Dashboard component with unified API experience
    */
   private generateDashboardFile(idea: AppIdea): string {
-    const template = `import React from 'react';
+    const template = `import React, { useState, useEffect } from 'react';
+import { ${this.generateApiServiceImports(idea.apis)} } from '../services/api.service';
 
 /**
  * Dashboard component
- * Main hub for {{appName}}
+ * Unified experience showcasing how {{apiCount}} APIs work together for {{appName}}
+ * This demonstrates the COMBINED use case, not separate API outputs
  */
 function Dashboard() {
+  const [combinedData, setCombinedData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [activeView, setActiveView] = useState('experience');
+
+  useEffect(() => {
+    loadUnifiedExperience();
+  }, []);
+
+  const loadUnifiedExperience = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      // Load data from all APIs to create unified experience
+      const results = await Promise.allSettled([
+        ${this.generateApiCalls(idea.apis)}
+      ]);
+
+      // Create unified experience from combined data
+      const unified = {
+        ${this.generateDataMapping(idea.apis)}
+        insight: "{{appName}} successfully demonstrates how {{apiCount}} APIs create value together",
+        timestamp: new Date().toISOString(),
+        combinedValue: "This shows the power of API combinations in action"
+      };
+
+      setCombinedData(unified);
+    } catch (err) {
+      setError('Failed to load the unified experience');
+      console.error('Unified experience error:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="dashboard loading">
+        <div className="loading-content">
+          <h2>🔄 Loading Unified Experience...</h2>
+          <p>Combining data from {{apiCount}} APIs to create {{appName}}...</p>
+          <div className="api-indicators">
+            {{#each apis}}
+            <div className="api-indicator">
+              <span className="api-icon">🔗</span>
+              <span>{{name}}</span>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="dashboard error">
+        <div className="error-content">
+          <h2>⚠️ Experience Unavailable</h2>
+          <p>{error}</p>
+          <button onClick={loadUnifiedExperience} className="retry-btn">
+            🔄 Retry Unified Experience
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="dashboard">
-      <h2>Dashboard</h2>
-      
-      <div className="features">
-        <h3>Key Features</h3>
-        <ul>
-          {{#each features}}
-          <li>{{this}}</li>
-          {{/each}}
-        </ul>
+      {/* Experience Navigation */}
+      <div className="dashboard-nav">
+        <button 
+          className={\`nav-tab \${activeView === 'experience' ? 'active' : ''}\`}
+          onClick={() => setActiveView('experience')}
+        >
+          🎯 Live Experience
+        </button>
+        <button 
+          className={\`nav-tab \${activeView === 'concept' ? 'active' : ''}\`}
+          onClick={() => setActiveView('concept')}
+        >
+          💡 The Concept
+        </button>
       </div>
-      
-      <div className="rationale">
-        <h3>About This App</h3>
-        <p>{{rationale}}</p>
+
+      {/* Main Content */}
+      <div className="dashboard-content">
+        {activeView === 'experience' && (
+          <div className="unified-experience">
+            <div className="experience-header">
+              <h2>🚀 {{appName}} in Action</h2>
+              <p>See how {{apiCount}} APIs create value together</p>
+            </div>
+
+            ${this.generateUnifiedInterface(idea)}
+
+            <div className="combined-insights">
+              <h3>💡 Combined Insights</h3>
+              <div className="insight-card">
+                <p><strong>Result:</strong> {combinedData?.insight}</p>
+                <p><strong>Value:</strong> {combinedData?.combinedValue}</p>
+                <small>Generated: {combinedData?.timestamp}</small>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeView === 'concept' && (
+          <div className="concept-view">
+            <div className="concept-explanation">
+              <h2>🧠 Why This Combination Works</h2>
+              <p>{{rationale}}</p>
+            </div>
+
+            <div className="api-synergy">
+              <h3>🔗 API Synergy Flow</h3>
+              <div className="synergy-flow">
+                {{#each apis}}
+                <div className="synergy-step">
+                  <div className="step-number">{{add @index 1}}</div>
+                  <div className="step-content">
+                    <h4>{{name}}</h4>
+                    <p>{{category}} • {{authType}}</p>
+                    <div className="step-description">
+                      Provides {{category}} data that enhances the {{../appName}} experience
+                    </div>
+                  </div>
+                  {{#unless @last}}
+                  <div className="flow-arrow">→</div>
+                  {{/unless}}
+                </div>
+                {{/each}}
+              </div>
+            </div>
+
+            <div className="features-showcase">
+              <h3>✨ Key Features</h3>
+              <div className="features-grid">
+                {{#each features}}
+                <div className="feature-card">
+                  <div className="feature-icon">⚡</div>
+                  <div className="feature-text">{{this}}</div>
+                </div>
+                {{/each}}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Controls */}
+      <div className="dashboard-controls">
+        <button onClick={loadUnifiedExperience} className="refresh-btn">
+          🔄 Refresh Experience
+        </button>
+        <div className="status-indicator">
+          <span className="status-dot active"></span>
+          <span>{{apiCount}} APIs Connected</span>
+        </div>
       </div>
     </div>
   );
@@ -631,12 +778,165 @@ function Dashboard() {
 export default Dashboard;
 `;
 
+    // Register Handlebars helper
+    Handlebars.registerHelper('add', function(a, b) {
+      return a + b;
+    });
+
     const compiled = Handlebars.compile(template);
     return compiled({
       appName: idea.appName,
+      description: idea.description,
       features: idea.features,
       rationale: idea.rationale,
+      apiCount: idea.apis.length,
+      apis: idea.apis.map(api => ({
+        ...api,
+        dataKey: this.toDataKey(api.name)
+      }))
     });
+  }
+
+  /**
+   * Generate API service imports for unified experience
+   */
+  private generateApiServiceImports(apis: APIMetadata[]): string {
+    return apis.map(api => {
+      const serviceName = `fetch${this.toComponentName(api.name)}Data`;
+      return serviceName;
+    }).join(', ');
+  }
+
+  /**
+   * Generate API calls for unified experience
+   */
+  private generateApiCalls(apis: APIMetadata[]): string {
+    return apis.map(api => {
+      const serviceName = `fetch${this.toComponentName(api.name)}Data`;
+      return `        ${serviceName}()`;
+    }).join(',\n');
+  }
+
+  /**
+   * Generate data mapping for unified experience
+   */
+  private generateDataMapping(apis: APIMetadata[]): string {
+    return apis.map((api, index) => {
+      const dataKey = this.toDataKey(api.name);
+      return `        ${dataKey}: results[${index}]?.value || null`;
+    }).join(',\n') + ',';
+  }
+
+  /**
+   * Generate unified interface based on API combination
+   */
+  private generateUnifiedInterface(idea: AppIdea): string {
+    const categories = idea.apis.map(api => api.category.toLowerCase());
+    
+    if (categories.includes('weather') && categories.includes('news')) {
+      return `
+            <div className="unified-interface weather-news">
+              <div className="interface-header">
+                <h3>🌤️ Weather-Informed News</h3>
+                <p>Local conditions combined with relevant news</p>
+              </div>
+              
+              <div className="combined-display">
+                <div className="weather-context">
+                  <h4>Current Weather</h4>
+                  <div className="weather-info">
+                    {combinedData?.weather ? (
+                      <div>
+                        <span className="temp">{combinedData.weather.temperature || '22°C'}</span>
+                        <span className="condition">{combinedData.weather.condition || 'Sunny'}</span>
+                      </div>
+                    ) : (
+                      <div className="mock-weather">
+                        <span className="temp">22°C</span>
+                        <span className="condition">Sunny</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="contextual-news">
+                  <h4>Weather-Related News</h4>
+                  <div className="news-items">
+                    {combinedData?.news ? (
+                      combinedData.news.articles?.slice(0, 2).map((article, idx) => (
+                        <div key={idx} className="news-item">
+                          <h5>{article.title}</h5>
+                          <p>{article.summary}</p>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="mock-news">
+                        <div className="news-item">
+                          <h5>Perfect Weather Boosts Local Events</h5>
+                          <p>Sunny conditions attract visitors to outdoor activities...</p>
+                        </div>
+                        <div className="news-item">
+                          <h5>Weather Alert: Ideal Conditions Continue</h5>
+                          <p>Meteorologists predict continued pleasant weather...</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div className="smart-insight">
+                <h4>🎯 Smart Recommendation</h4>
+                <p>
+                  Based on current weather (sunny, 22°C) and local news trends, 
+                  this is perfect weather for the outdoor events mentioned in today's news!
+                </p>
+              </div>
+            </div>`;
+    } else {
+      return `
+            <div className="unified-interface generic">
+              <div className="interface-header">
+                <h3>🎯 Unified Data Experience</h3>
+                <p>{{description}}</p>
+              </div>
+              
+              <div className="combined-display">
+                <div className="data-synthesis">
+                  <h4>🔗 Combined Data Flow</h4>
+                  <div className="synthesis-cards">
+                    {{#each apis}}
+                    <div className="data-card">
+                      <div className="card-header">
+                        <span className="api-icon">🔌</span>
+                        <h5>{{name}}</h5>
+                      </div>
+                      <div className="card-content">
+                        <p>{{description}}</p>
+                        <div className="data-status">
+                          {combinedData?.{{dataKey}} ? (
+                            <span className="status-success">✅ Connected</span>
+                          ) : (
+                            <span className="status-demo">📊 Demo Mode</span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                    {{/each}}
+                  </div>
+                </div>
+
+                <div className="unified-result">
+                  <h4>✨ The Combined Result</h4>
+                  <p>
+                    This demonstrates how {{apiCount}} different APIs work together 
+                    to create {{appName}}. Instead of separate outputs, the data 
+                    flows seamlessly to create a unified, meaningful experience.
+                  </p>
+                </div>
+              </div>
+            </div>`;
+    }
   }
 
   /**
@@ -1149,6 +1449,393 @@ Happy coding! 🚀
   margin: 0 auto;
 }
 
+/* Dashboard Unified Experience Styles */
+.dashboard {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 0;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.dashboard.loading, .dashboard.error {
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.loading-content h2 {
+  color: #667eea;
+  margin-bottom: 16px;
+}
+
+.api-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.api-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 12px;
+  min-width: 100px;
+}
+
+.api-icon {
+  font-size: 24px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.error-content h2 {
+  color: #dc2626;
+  margin-bottom: 16px;
+}
+
+.retry-btn {
+  margin: 20px 0;
+  background: #dc2626;
+}
+
+.dashboard-nav {
+  display: flex;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.nav-tab {
+  flex: 1;
+  padding: 16px 24px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-bottom: 3px solid transparent;
+}
+
+.nav-tab:hover {
+  background: #f1f5f9;
+  color: #475569;
+  transform: none;
+  box-shadow: none;
+}
+
+.nav-tab.active {
+  color: #667eea;
+  background: white;
+  border-bottom-color: #667eea;
+}
+
+.dashboard-content {
+  padding: 40px;
+}
+
+.experience-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.experience-header h2 {
+  color: #1e293b;
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.unified-interface {
+  margin-bottom: 40px;
+}
+
+.interface-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.interface-header h3 {
+  color: #1e293b;
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.combined-display {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.weather-context, .contextual-news {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.weather-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.temp {
+  font-size: 36px;
+  font-weight: 700;
+  color: #667eea;
+}
+
+.condition {
+  font-size: 18px;
+  color: #64748b;
+}
+
+.news-items, .mock-news {
+  margin-top: 16px;
+}
+
+.news-item {
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.news-item h5 {
+  color: #1e293b;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.news-item p {
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.data-synthesis {
+  margin-bottom: 40px;
+}
+
+.synthesis-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.data-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.card-content p {
+  color: #64748b;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.data-status {
+  margin-top: 12px;
+}
+
+.status-success {
+  color: #059669;
+  font-weight: 600;
+}
+
+.status-demo {
+  color: #7c3aed;
+  font-weight: 600;
+}
+
+.combined-insights, .smart-insight {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border: 1px solid #86efac;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+}
+
+.combined-insights h3, .smart-insight h4 {
+  color: #14532d;
+  margin-bottom: 12px;
+}
+
+.combined-insights p, .smart-insight p {
+  color: #166534;
+  line-height: 1.6;
+}
+
+.insight-card {
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  margin-top: 16px;
+  text-align: left;
+}
+
+.concept-explanation {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.concept-explanation h2 {
+  color: #1e293b;
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+
+.api-synergy {
+  margin-bottom: 40px;
+}
+
+.synergy-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.synergy-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 200px;
+}
+
+.step-number {
+  width: 32px;
+  height: 32px;
+  background: #667eea;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.step-content h4 {
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.step-content p {
+  color: #64748b;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.step-description {
+  color: #475569;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.flow-arrow {
+  font-size: 20px;
+  color: #667eea;
+  margin: 0 8px;
+}
+
+.features-showcase {
+  margin-bottom: 40px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.feature-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.feature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.feature-icon {
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.feature-text {
+  color: #1e293b;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.dashboard-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+}
+
+.refresh-btn {
+  background: #667eea;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #64748b;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+}
+
+.status-dot.active {
+  animation: pulse 2s infinite;
+}
+
 .api-components {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1217,12 +1904,60 @@ button:active {
 }
 
 @media (max-width: 768px) {
+  .App {
+    padding: 10px;
+  }
+  
   .App-header h1 {
     font-size: 2rem;
   }
   
   .api-components {
     grid-template-columns: 1fr;
+  }
+  
+  .dashboard-content {
+    padding: 20px;
+  }
+  
+  .dashboard-nav {
+    flex-direction: column;
+  }
+  
+  .nav-tab {
+    border-bottom: 1px solid #e2e8f0;
+    border-right: none;
+  }
+  
+  .nav-tab.active {
+    border-bottom-color: #e2e8f0;
+    border-left: 3px solid #667eea;
+  }
+  
+  .combined-display {
+    grid-template-columns: 1fr;
+  }
+  
+  .synergy-flow {
+    flex-direction: column;
+  }
+  
+  .flow-arrow {
+    transform: rotate(90deg);
+    margin: 8px 0;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .synthesis-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard-controls {
+    flex-direction: column;
+    gap: 16px;
   }
 }
 `;

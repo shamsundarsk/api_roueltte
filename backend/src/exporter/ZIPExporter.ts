@@ -1,7 +1,7 @@
 import archiver from 'archiver';
 import fs from 'fs-extra';
 import path from 'path';
-import { GeneratedProject, AppIdea } from '../types/api.types';
+import { GeneratedProject, AppIdea, APIMetadata } from '../types/api.types';
 import { ZIPCreationError, CleanupError } from '../errors/CustomErrors';
 import { logger } from '../utils/errorLogger';
 
@@ -146,7 +146,7 @@ export class ZIPExporter {
   }
 
   /**
-   * Generate a comprehensive README file
+   * Generate a comprehensive README file focused on the combined idea
    * @param idea - The app idea
    * @returns README content as a string
    */
@@ -155,17 +155,23 @@ export class ZIPExporter {
     const hasMockMode = mockAPIs.length > 0;
 
     let readme = `# ${idea.appName}\n\n`;
-    readme += `## Description\n\n${idea.description}\n\n`;
+    readme += `> 🤖 **AI-Generated App Concept** - Created by API Roulette\n\n`;
+    readme += `## 💡 The Combined Idea\n\n`;
+    readme += `${idea.description}\n\n`;
+    readme += `This project demonstrates the power of **API mashups** - intelligently combining multiple APIs to create functionality that wouldn't be possible with any single API alone.\n\n`;
     
-    readme += `## Features\n\n`;
+    readme += `## 🎯 Key Features\n\n`;
     idea.features.forEach((feature, index) => {
       readme += `${index + 1}. ${feature}\n`;
     });
     readme += `\n`;
 
-    readme += `## Rationale\n\n${idea.rationale}\n\n`;
+    readme += `## 🧠 Why This Combination Works\n\n`;
+    readme += `${idea.rationale}\n\n`;
+    readme += `Each API contributes unique capabilities that, when combined, create a synergistic effect - the whole becomes greater than the sum of its parts.\n\n`;
 
-    readme += `## Selected APIs\n\n`;
+    readme += `## 🔗 API Integration Strategy\n\n`;
+    readme += `This project combines ${idea.apis.length} carefully selected APIs:\n\n`;
     idea.apis.forEach((api, index) => {
       readme += `### ${index + 1}. ${api.name}\n\n`;
       readme += `- **Description:** ${api.description}\n`;
@@ -557,7 +563,7 @@ export class ZIPExporter {
   }
 
   /**
-   * Generate an interactive HTML landing page
+   * Generate an interactive HTML landing page focused on the combined idea
    * @param idea - The app idea
    * @returns HTML content as a string
    */
@@ -570,7 +576,7 @@ export class ZIPExporter {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${idea.appName} - Project Overview</title>
+    <title>${idea.appName} - AI-Generated App Concept</title>
     <style>
         * {
             margin: 0;
@@ -587,7 +593,7 @@ export class ZIPExporter {
         }
         
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             background: white;
             border-radius: 16px;
@@ -603,205 +609,352 @@ export class ZIPExporter {
         }
         
         .header h1 {
-            font-size: 36px;
+            font-size: 42px;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             letter-spacing: -0.02em;
         }
         
-        .header p {
-            font-size: 18px;
+        .header .subtitle {
+            font-size: 20px;
             opacity: 0.95;
+            margin-bottom: 8px;
+        }
+        
+        .header .description {
+            font-size: 16px;
+            opacity: 0.85;
+            max-width: 600px;
+            margin: 0 auto;
         }
         
         .badge {
             display: inline-block;
-            padding: 6px 12px;
+            padding: 8px 16px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 20px;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 600;
-            margin-top: 16px;
+            margin-top: 20px;
         }
         
         .content {
-            padding: 40px;
+            padding: 48px 40px;
+        }
+        
+        .hero-section {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+            border-radius: 16px;
+            border: 1px solid #E2E8F0;
+        }
+        
+        .hero-section h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1E293B;
+            margin-bottom: 16px;
+        }
+        
+        .hero-section .tagline {
+            font-size: 18px;
+            color: #475569;
+            margin-bottom: 24px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .concept-highlight {
+            background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%);
+            border: 2px solid #C7D2FE;
+            border-radius: 12px;
+            padding: 32px;
+            margin: 32px 0;
+        }
+        
+        .concept-highlight h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #3730A3;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        
+        .concept-highlight p {
+            font-size: 18px;
+            color: #4338CA;
+            text-align: center;
+            line-height: 1.7;
         }
         
         .section {
-            margin-bottom: 40px;
+            margin-bottom: 48px;
         }
         
         .section h2 {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            color: #1C1917;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1E293B;
             letter-spacing: -0.01em;
         }
         
         .section p {
-            color: #57534E;
-            margin-bottom: 12px;
-        }
-        
-        .features {
-            list-style: none;
-            display: grid;
-            gap: 12px;
-        }
-        
-        .features li {
-            padding: 12px 16px;
-            background: #FAFAF9;
-            border-radius: 8px;
-            border-left: 3px solid #7C3AED;
-            color: #1C1917;
-        }
-        
-        .api-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 16px;
-            margin-top: 20px;
-        }
-        
-        .api-card {
-            padding: 20px;
-            background: #FAFAF9;
-            border: 1px solid #E7E5E4;
-            border-radius: 12px;
-            transition: all 0.2s;
-        }
-        
-        .api-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-        
-        .api-card h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #1C1917;
-        }
-        
-        .api-card p {
-            font-size: 14px;
-            color: #78716C;
-            margin-bottom: 12px;
-        }
-        
-        .api-meta {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        
-        .tag {
-            padding: 4px 10px;
-            background: white;
-            border: 1px solid #E7E5E4;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 500;
-            color: #57534E;
-        }
-        
-        .setup-steps {
-            background: #F5F5F4;
-            border-radius: 12px;
-            padding: 24px;
-            margin-top: 20px;
-        }
-        
-        .setup-steps h3 {
-            font-size: 18px;
-            font-weight: 600;
+            color: #475569;
             margin-bottom: 16px;
-            color: #1C1917;
+            font-size: 16px;
+            line-height: 1.7;
         }
         
-        .step {
-            margin-bottom: 20px;
+        .api-selection-story {
+            background: #FEFCE8;
+            border: 1px solid #FDE047;
+            border-radius: 12px;
+            padding: 32px;
+            margin: 24px 0;
         }
         
-        .step-number {
-            display: inline-block;
-            width: 28px;
-            height: 28px;
-            background: #7C3AED;
-            color: white;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 28px;
-            font-weight: 600;
-            font-size: 14px;
-            margin-right: 12px;
-        }
-        
-        .step-content {
-            display: inline-block;
-            vertical-align: top;
-            width: calc(100% - 40px);
-        }
-        
-        .step-title {
-            font-weight: 600;
-            color: #1C1917;
-            margin-bottom: 4px;
-        }
-        
-        code {
-            background: #1C1917;
-            color: #14B8A6;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 13px;
-        }
-        
-        .code-block {
-            background: #1C1917;
-            color: #F5F5F4;
-            padding: 16px;
-            border-radius: 8px;
-            overflow-x: auto;
-            margin: 12px 0;
-            font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 13px;
-            line-height: 1.5;
-        }
-        
-        .alert {
-            padding: 16px 20px;
-            background: #FFF7ED;
-            border: 1px solid #FDBA74;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-        
-        .alert-title {
-            font-weight: 600;
-            color: #EA580C;
-            margin-bottom: 8px;
+        .api-selection-story h3 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #A16207;
+            margin-bottom: 16px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
         
+        .api-selection-story p {
+            color: #92400E;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+        
+        .api-combination {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin: 32px 0;
+        }
+        
+        .api-role {
+            background: white;
+            border: 2px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .api-role:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-color: #7C3AED;
+        }
+        
+        .api-role .role-number {
+            position: absolute;
+            top: -12px;
+            left: 24px;
+            background: #7C3AED;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+        }
+        
+        .api-role h4 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1E293B;
+            margin-bottom: 8px;
+            margin-top: 8px;
+        }
+        
+        .api-role .api-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #7C3AED;
+            margin-bottom: 12px;
+        }
+        
+        .api-role p {
+            color: #475569;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        
+        .api-role .contribution {
+            background: #F8FAFC;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+            border-left: 4px solid #7C3AED;
+        }
+        
+        .api-role .contribution strong {
+            color: #1E293B;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .final-concept {
+            background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
+            border: 2px solid #86EFAC;
+            border-radius: 16px;
+            padding: 40px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .final-concept h3 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #14532D;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .final-concept .concept-description {
+            font-size: 18px;
+            color: #166534;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto 24px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+        
+        .feature-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #D1FAE5;
+            text-align: left;
+        }
+        
+        .feature-item strong {
+            color: #14532D;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        
+        .feature-item span {
+            color: #166534;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .setup-preview {
+            background: #F8FAFC;
+            border-radius: 12px;
+            padding: 32px;
+            margin-top: 40px;
+        }
+        
+        .setup-preview h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #1E293B;
+            text-align: center;
+        }
+        
+        .setup-preview p {
+            text-align: center;
+            color: #475569;
+            margin-bottom: 24px;
+        }
+        
+        .quick-start {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .start-card {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 10px;
+            padding: 24px;
+            text-align: center;
+        }
+        
+        .start-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1E293B;
+            margin-bottom: 12px;
+        }
+        
+        .start-card .step-list {
+            text-align: left;
+            color: #475569;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .start-card .step-list li {
+            margin-bottom: 8px;
+        }
+        
+        code {
+            background: #1E293B;
+            color: #10B981;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+        }
+        
+        .alert {
+            padding: 20px 24px;
+            background: #FFF7ED;
+            border: 1px solid #FDBA74;
+            border-radius: 10px;
+            margin: 24px 0;
+        }
+        
+        .alert-title {
+            font-weight: 700;
+            color: #EA580C;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+        }
+        
         .alert p {
             color: #9A3412;
-            font-size: 14px;
+            font-size: 15px;
+            line-height: 1.6;
         }
         
         .footer {
             text-align: center;
-            padding: 32px;
-            background: #FAFAF9;
+            padding: 40px;
+            background: #F8FAFC;
             border-top: 1px solid #E7E5E4;
-            color: #78716C;
-            font-size: 14px;
+            color: #64748B;
+            font-size: 15px;
         }
         
         .footer a {
@@ -818,137 +971,323 @@ export class ZIPExporter {
 <body>
     <div class="container">
         <div class="header">
-            <h1>✨ ${idea.appName}</h1>
-            <p>${idea.description}</p>
-            <span class="badge">Generated by API Roulette</span>
+            <h1>🎯 ${idea.appName}</h1>
+            <div class="subtitle">AI-Generated App Concept</div>
+            <div class="description">Intelligently combining ${idea.apis.length} APIs to create a unique application experience</div>
+            <span class="badge">🤖 Generated by API Roulette</span>
         </div>
         
         <div class="content">
-            <div class="section">
-                <h2>🎯 Features</h2>
-                <ul class="features">
-                    ${idea.features.map(feature => `<li>${feature}</li>`).join('\n                    ')}
-                </ul>
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <h2>🚀 What is API Roulette?</h2>
+                <div class="tagline">
+                    API Roulette is an AI-powered platform that randomly selects APIs from our curated registry 
+                    and intelligently combines them into innovative app concepts. Each generated project demonstrates 
+                    how different APIs can work together to create something greater than the sum of their parts.
+                </div>
             </div>
-            
+
+            <!-- Main Concept -->
+            <div class="concept-highlight">
+                <h3>💡 The Combined Idea</h3>
+                <p>${idea.description}</p>
+            </div>
+
+            <!-- API Selection Story -->
             <div class="section">
-                <h2>💡 Rationale</h2>
+                <h2>🎲 Why These APIs Were Selected</h2>
+                <div class="api-selection-story">
+                    <h3>🧠 AI Selection Process</h3>
+                    <p>
+                        Our AI analyzed thousands of possible API combinations and selected these ${idea.apis.length} APIs 
+                        because they create natural synergies. Each API contributes a unique capability that, when combined 
+                        with the others, enables functionality that wouldn't be possible with any single API alone.
+                    </p>
+                </div>
                 <p>${idea.rationale}</p>
             </div>
-            
+
+            <!-- How APIs Combine -->
             <div class="section">
-                <h2>🔌 Selected APIs</h2>
-                <div class="api-grid">
-                    ${idea.apis.map(api => `
-                    <div class="api-card">
-                        <h3>${api.name}</h3>
+                <h2>🔗 How These APIs Work Together</h2>
+                <div class="api-combination">
+                    ${idea.apis.map((api, index) => `
+                    <div class="api-role">
+                        <div class="role-number">${index + 1}</div>
+                        <h4>Primary Role</h4>
+                        <div class="api-name">${api.name}</div>
                         <p>${api.description}</p>
-                        <div class="api-meta">
-                            <span class="tag">${api.category}</span>
-                            <span class="tag">${api.authType === 'none' ? 'No Auth' : api.authType.toUpperCase()}</span>
-                            ${api.corsCompatible ? '<span class="tag">CORS ✓</span>' : ''}
+                        <div class="contribution">
+                            <strong>Contribution to ${idea.appName}:</strong>
+                            This API ${this.generateApiContribution(api, idea, index)}
                         </div>
                     </div>
                     `).join('\n                    ')}
                 </div>
             </div>
-            
+
+            <!-- Final Combined Concept -->
+            <div class="final-concept">
+                <h3>✨ The Final Result</h3>
+                <div class="concept-description">
+                    By combining these ${idea.apis.length} APIs, <strong>${idea.appName}</strong> creates a unique user experience 
+                    where ${this.generateCombinationExplanation(idea)}. This demonstrates the power of API mashups - 
+                    taking existing services and combining them in creative ways to solve new problems.
+                </div>
+                
+                <div class="features-grid">
+                    ${idea.features.map(feature => `
+                    <div class="feature-item">
+                        <strong>🎯 Key Feature</strong>
+                        <span>${feature}</span>
+                    </div>
+                    `).join('\n                    ')}
+                </div>
+            </div>
+
             ${hasMockMode ? `
             <div class="alert">
                 <div class="alert-title">
                     <span>⚠️</span>
-                    <span>Mock Mode Active</span>
+                    <span>Development Mode Notice</span>
                 </div>
-                <p>Some APIs require authentication. The generated code includes mock data for these APIs. To use real data, add your API keys to the backend/.env file and update the service files.</p>
+                <p>Some APIs require authentication keys. This project includes mock data for immediate testing. 
+                To connect to real APIs, follow the setup instructions in the README.md and API_KEYS_GUIDE.md files.</p>
             </div>
             ` : ''}
-            
-            <div class="section">
-                <h2>🚀 Quick Start</h2>
-                <div class="setup-steps">
-                    <h3>Backend Setup</h3>
-                    <div class="step">
-                        <span class="step-number">1</span>
-                        <div class="step-content">
-                            <div class="step-title">Navigate to backend directory</div>
-                            <div class="code-block">cd backend</div>
-                        </div>
-                    </div>
-                    <div class="step">
-                        <span class="step-number">2</span>
-                        <div class="step-content">
-                            <div class="step-title">Install dependencies</div>
-                            <div class="code-block">npm install</div>
-                        </div>
-                    </div>
-                    <div class="step">
-                        <span class="step-number">3</span>
-                        <div class="step-content">
-                            <div class="step-title">Configure environment</div>
-                            <p>Copy <code>.env.example</code> to <code>.env</code> and add your API keys</p>
-                        </div>
-                    </div>
-                    <div class="step">
-                        <span class="step-number">4</span>
-                        <div class="step-content">
-                            <div class="step-title">Start the server</div>
-                            <div class="code-block">npm run dev</div>
-                        </div>
-                    </div>
-                </div>
+
+            <!-- Setup Preview -->
+            <div class="setup-preview">
+                <h3>🛠️ Ready to Build?</h3>
+                <p>This downloadable project includes everything you need to start developing immediately.</p>
                 
-                <div class="setup-steps" style="margin-top: 20px;">
-                    <h3>Frontend Setup</h3>
-                    <div class="step">
-                        <span class="step-number">1</span>
-                        <div class="step-content">
-                            <div class="step-title">Navigate to frontend directory</div>
-                            <div class="code-block">cd frontend</div>
+                <div class="quick-start">
+                    <div class="start-card">
+                        <h4>📁 Project Structure</h4>
+                        <div class="step-list">
+                            <ul>
+                                <li>Complete backend with API integrations</li>
+                                <li>React frontend with modern UI components</li>
+                                <li>Environment configuration templates</li>
+                                <li>Comprehensive documentation</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="step">
-                        <span class="step-number">2</span>
-                        <div class="step-content">
-                            <div class="step-title">Install dependencies</div>
-                            <div class="code-block">npm install</div>
+                    
+                    <div class="start-card">
+                        <h4>⚡ Quick Start</h4>
+                        <div class="step-list">
+                            <ul>
+                                <li>Run <code>npm install</code> in both directories</li>
+                                <li>Copy <code>.env.example</code> to <code>.env</code></li>
+                                <li>Add your API keys (see API_KEYS_GUIDE.md)</li>
+                                <li>Start with <code>npm run dev</code></li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="step">
-                        <span class="step-number">3</span>
-                        <div class="step-content">
-                            <div class="step-title">Configure environment</div>
-                            <p>Copy <code>.env.example</code> to <code>.env</code></p>
-                        </div>
-                    </div>
-                    <div class="step">
-                        <span class="step-number">4</span>
-                        <div class="step-content">
-                            <div class="step-title">Start the development server</div>
-                            <div class="code-block">npm run dev</div>
+                    
+                    <div class="start-card">
+                        <h4>📚 Documentation</h4>
+                        <div class="step-list">
+                            <ul>
+                                <li><strong>README.md</strong> - Complete setup guide</li>
+                                <li><strong>API_KEYS_GUIDE.md</strong> - Authentication help</li>
+                                <li>Inline code comments for guidance</li>
+                                <li>API documentation links included</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
+            <!-- Technical Details -->
             <div class="section">
-                <h2>📚 Documentation</h2>
-                <p>For detailed information about the project structure, API integration, and deployment:</p>
-                <ul class="features">
-                    <li>Read the <strong>README.md</strong> file for comprehensive documentation</li>
-                    <li>Check the <strong>backend/src/services/</strong> directory for API integration examples</li>
-                    <li>Review the <strong>frontend/src/components/</strong> directory for UI components</li>
-                    <li>Visit the API documentation links above for authentication details</li>
-                </ul>
+                <h2>🔧 Technical Implementation</h2>
+                <p>
+                    This project demonstrates modern full-stack development practices with a Node.js/Express backend 
+                    and React frontend. The APIs are integrated using industry-standard patterns, with proper error 
+                    handling, environment configuration, and scalable architecture.
+                </p>
+                
+                <div class="api-combination">
+                    ${idea.apis.map(api => `
+                    <div class="api-role">
+                        <h4>${api.name}</h4>
+                        <div class="api-name">${api.category}</div>
+                        <p><strong>Base URL:</strong> ${api.baseUrl}</p>
+                        <p><strong>Authentication:</strong> ${api.authType === 'none' ? 'Public API (no auth required)' : api.authType.toUpperCase()}</p>
+                        <p><strong>CORS Support:</strong> ${api.corsCompatible ? '✅ Yes' : '❌ Requires proxy'}</p>
+                        <div class="contribution">
+                            <strong>Documentation:</strong>
+                            <a href="${api.documentationUrl}" target="_blank" style="color: #7C3AED; text-decoration: none;">
+                                View API Docs →
+                            </a>
+                        </div>
+                    </div>
+                    `).join('\n                    ')}
+                </div>
             </div>
         </div>
         
         <div class="footer">
             <p>Generated on ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-            <p>Created with <a href="https://github.com/yourusername/api-roulette" target="_blank">API Roulette</a></p>
+            <p>Powered by <a href="#" target="_blank">API Roulette</a> - Discover the unexpected potential of API combinations</p>
         </div>
     </div>
 </body>
 </html>`;
+  }
+
+  /**
+   * Generate a specific contribution explanation for an API in the context of the app idea
+   * @param api - The API metadata
+   * @param idea - The app idea
+   * @param index - The API index
+   * @returns Contribution explanation string
+   */
+  private generateApiContribution(api: APIMetadata, idea: AppIdea, index: number): string {
+    const baseContributions = [
+      `provides the core data foundation that ${idea.appName} builds upon, enabling ${this.extractMainFunction(idea.description)}`,
+      `adds the interactive layer that allows users to ${this.extractUserAction(idea.description)}, making the app dynamic and engaging`,
+      `delivers the essential functionality that ties everything together, ensuring ${idea.appName} can ${this.extractFinalOutcome(idea.description)}`
+    ];
+    
+    // Customize based on API category if possible
+    const categorySpecific = this.getCategorySpecificContribution(api.category, idea.appName);
+    if (categorySpecific) {
+      return categorySpecific;
+    }
+    
+    // Use modulo to cycle through contributions if there are more than 3 APIs
+    return baseContributions[index % baseContributions.length];
+  }
+
+  /**
+   * Get category-specific contribution text
+   * @param category - API category
+   * @param appName - App name
+   * @returns Category-specific contribution or null
+   */
+  private getCategorySpecificContribution(category: string, appName: string): string | null {
+    const categoryMap: Record<string, string> = {
+      'weather': `supplies real-time weather data that forms the environmental context for ${appName}`,
+      'news': `delivers current news and information that keeps ${appName} users informed and engaged`,
+      'location': `provides geolocation services that enable ${appName} to offer location-aware features`,
+      'social': `connects social media data to make ${appName} more interactive and community-driven`,
+      'finance': `integrates financial data to give ${appName} users valuable market insights`,
+      'entertainment': `adds entertainment content that makes ${appName} more engaging and fun to use`
+    };
+    
+    return categoryMap[category.toLowerCase()] || null;
+  }
+
+  /**
+   * Generate an explanation of how all APIs combine together
+   * @param idea - The app idea
+   * @returns Combination explanation string
+   */
+  private generateCombinationExplanation(idea: AppIdea): string {
+    const apiNames = idea.apis.map(api => api.name).join(', ');
+    const mainConcept = this.extractMainConcept(idea.description);
+    
+    return `data from ${apiNames} flows seamlessly together to ${mainConcept}. Each API contributes its unique strengths, creating an integrated experience that showcases the innovative potential of modern API ecosystems`;
+  }
+
+  /**
+   * Extract the main function from the app description
+   * @param description - App description
+   * @returns Main function string
+   */
+  private extractMainFunction(description: string): string {
+    // Look for action words and extract the main purpose
+    const actionWords = ['combines', 'integrates', 'connects', 'merges', 'blends', 'unifies'];
+    const lowerDesc = description.toLowerCase();
+    
+    for (const word of actionWords) {
+      if (lowerDesc.includes(word)) {
+        const parts = description.split(new RegExp(word, 'i'));
+        if (parts.length > 1) {
+          return parts[1].trim().split('.')[0].toLowerCase();
+        }
+      }
+    }
+    
+    // Fallback: extract first sentence and make it generic
+    const firstSentence = description.split('.')[0];
+    return `deliver ${firstSentence.toLowerCase().replace(/^[^a-z]*/, '')}`;
+  }
+
+  /**
+   * Extract user action from the app description
+   * @param description - App description
+   * @returns User action string
+   */
+  private extractUserAction(description: string): string {
+    // Look for user-focused verbs
+    const userActions = ['explore', 'discover', 'find', 'search', 'browse', 'access', 'view', 'interact'];
+    const lowerDesc = description.toLowerCase();
+    
+    for (const action of userActions) {
+      if (lowerDesc.includes(action)) {
+        return `${action} and interact with the combined data`;
+      }
+    }
+    
+    return 'engage with the integrated features';
+  }
+
+  /**
+   * Extract final outcome from the app description
+   * @param description - App description
+   * @returns Final outcome string
+   */
+  private extractFinalOutcome(description: string): string {
+    // Look for outcome-focused phrases
+    const outcomes = ['provide', 'deliver', 'offer', 'create', 'generate', 'produce'];
+    const lowerDesc = description.toLowerCase();
+    
+    for (const outcome of outcomes) {
+      if (lowerDesc.includes(outcome)) {
+        const parts = description.split(new RegExp(outcome, 'i'));
+        if (parts.length > 1) {
+          return `${outcome} ${parts[1].trim().split('.')[0].toLowerCase()}`;
+        }
+      }
+    }
+    
+    return 'achieve its core objectives';
+  }
+
+  /**
+   * Extract main concept from the app description
+   * @param description - App description
+   * @returns Main concept string
+   */
+  private extractMainConcept(description: string): string {
+    // Extract the core concept by finding the main verb and object
+    const sentences = description.split('.');
+    const firstSentence = sentences[0].toLowerCase();
+    
+    // Look for patterns like "app that [does something]"
+    if (firstSentence.includes('that ')) {
+      const concept = firstSentence.split('that ')[1];
+      return concept.trim();
+    }
+    
+    // Look for patterns with action verbs
+    const actionVerbs = ['combines', 'integrates', 'connects', 'merges', 'creates', 'provides'];
+    for (const verb of actionVerbs) {
+      if (firstSentence.includes(verb)) {
+        const parts = firstSentence.split(verb);
+        if (parts.length > 1) {
+          return `${verb} ${parts[1].trim()}`;
+        }
+      }
+    }
+    
+    // Fallback
+    return 'create a unique and valuable user experience';
   }
 
   /**

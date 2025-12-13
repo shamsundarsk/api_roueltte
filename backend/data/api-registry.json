@@ -1301,6 +1301,28 @@
       "authType": "none",
       "corsCompatible": true,
       "documentationUrl": "https://placeholder.com"
+    },
+    {
+      "id": "test-api-1765527022829",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
+    },
+    {
+      "id": "test-api-duplicate",
+      "name": "Test API",
+      "description": "A test API for integration testing",
+      "category": "testing",
+      "baseUrl": "https://api.test.com",
+      "sampleEndpoint": "/v1/data",
+      "authType": "none",
+      "corsCompatible": true,
+      "documentationUrl": "https://docs.test.com"
     }
   ]
 }
